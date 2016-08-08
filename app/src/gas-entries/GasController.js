@@ -20,6 +20,7 @@
     $scope.addEntry     = addEntry;
     $scope.clearEntry   = clearEntry;
     $scope.showChangePricePrompt = showChangePricePrompt;
+    $scope.showHelp     = showHelp;
     $scope.calculatePrice = calculatePrice;
     $scope.calculateLts = calculateLts;
 
@@ -66,6 +67,18 @@
     }
     function calculateLts() {
       $scope.entry.l = Math.round( 100 * $scope.entry.price / $scope.gasPrice) / 100;
+    }
+
+    function showHelp(ev) {
+      $mdDialog.show(
+        $mdDialog.alert()
+          .parent(angular.element(document.querySelector('#app')))
+          .clickOutsideToClose(true)
+          .title('Gas tracker')
+          .htmlContent('Version 0.1.0 <br /> Last updated: 2016-08-08 <br /> GitHub: <a href="https://github.com/Oscarwa" target="_blank">@Oscarwa</a>')
+          .ok('Got it!')
+          .targetEvent(ev)
+      );
     }
 
     function showChangePricePrompt(ev) {
