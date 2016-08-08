@@ -32,8 +32,11 @@
      * @param menuId
      */
     function addEntry (  ) {
-      gasService.saveEntry($scope.entry);
-      reload();
+      if($scope.entry && $scope.entry.price && $scope.entry.l && $scope.entry.kms) {
+        gasService.saveEntry($scope.entry);
+        $scope.entry = {};
+        reload();
+      }
     }
 
     function reload() {
