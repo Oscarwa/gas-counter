@@ -71,10 +71,13 @@
               <md-list-item class="md-3-line" ng-repeat="gasEntry in gasEntries | orderBy:'-'" ng-click="null">
                 <img src="assets/svg/gas.png" class="md-avatar" alt="" />
                 <div class="md-list-item-text" layout="column">
-                  <h3>{{gasEntry.date | date:'fullDate' }}</h3>
-                  <h4>{{gasEntry.price | currency:"$":2 }}</h4>
-                  <h4>{{gasEntry.l | number:2 }} l</h4>
-                  <p>{{gasEntry.kms | number:0 }} kms</p>
+                  <h4 flex>{{gasEntry.date | date:'fullDate' }}</h4>
+                  <h3 flex>{{gasEntry.price | currency:"$":2 }}</h3>
+                  <div flex>
+                    <h3>{{gasEntry.l | number:2 }} l</h3>
+                    <p ng-show="gasEntry.kmDiffNext">Performance: {{gasEntry.kmDiffNext / gasEntry.l | number:3}} km/l ({{gasEntry.kmDiffNext | number:0}}/{{gasEntry.l | number:1}})</p>
+                  <div>
+                  <p>{{gasEntry.kms | number:0 }} kms <span ng-show="gasEntry.kmDiffPrevious">[{{gasEntry.kmDiff | number}} kms since last entry]</span></p>
                 </div>
                 <md-divider ></md-divider>
               </md-list-item>
