@@ -29,10 +29,10 @@
       },
       saveEntry: function(entry) {
         var data = $localStorage.entries;
-        var lastEntry = $localStorage.lastEntry;
+        entry.date = new Date().toISOString();
 
+        var lastEntry = $localStorage.lastEntry;
         if(!!lastEntry) {
-          entry.date = new Date().toISOString();
           // Save days since last entry
           var timeDiff = Math.abs(new Date(entry.date).getTime() - new Date(lastEntry.date).getTime());
           entry.daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
