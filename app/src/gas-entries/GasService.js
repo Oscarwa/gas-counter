@@ -15,7 +15,8 @@
   function GasService($q, $localStorage) {
 
     $localStorage.$default({
-      entries: []
+      entries: [],
+      gasPrice: 13.96
     });
     // Promise-based API
     return {
@@ -30,8 +31,15 @@
         var data = $localStorage.entries;
         entry.date = new Date().toISOString();
         data.push(entry);
+        $localStorage.lastEntry = entry;
         $localStorage.entries = data;
         console.log('save', entry);
+      },
+      getGasPrice: function() {
+        return $q.when(parseFloat($localStorage.gasPrice));
+      },
+      setGasPrice: function(price) {
+        $localStorage.gasPrice = parseFloat(price);
       }
     };
   }
