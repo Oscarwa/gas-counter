@@ -1,0 +1,14 @@
+CACHE MANIFEST
+# 2016/08/08 v0.3
+index.html
+assets/svg/gas.png
+../node_modules/angular/angular.js
+../node_modules/angular-animate/angular-animate.js
+../node_modules/angular-aria/angular-aria.js
+../node_modules/ngstorage/ngStorage.min.js
+../node_modules/angular-material/angular-material.js
+src/gas-entries/GasEntries.js
+src/gas-entries/GasController.js
+src/gas-entries/GasService.js
+../node_modules/angular-material/angular-material.css
+assets/app.css
