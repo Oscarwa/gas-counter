@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
   <head>
     <title>Angular Material - Starter App</title>
 
@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css"/>
     <link rel="stylesheet" href="assets/app.css"/>
 
@@ -20,20 +20,18 @@
           display: none !important;
         }
     </style>
-
   </head>
 
   <body ng-app="gasApp" layout="column" ng-controller="GasController as gasCtrl" ng-cloak>
 
-    <md-toolbar>
-      <h1>Angular Material - Starter App</h1>
+    <md-toolbar flex>
+      <h1>&nbsp; Gas spent tracker</h1>
     </md-toolbar>
 
     <div layout="column" flex>
 
       <!-- Form -->
-      <div flex>
-        <md-card md-theme="default" flex=100>
+        <md-card md-theme="default" flex=100 layout-margin>
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline">New gas entry</span>
@@ -54,30 +52,29 @@
                 <input ng-model="entry.kms" type="number" placeholder="100000">
               </md-input-container>
             </div>
+            <div layout="row"  layout-align="end center">
+              <md-card-actions>
+                <md-button ng-click="addEntry()" class="md-raised md-primary">Add</md-button>
+              </md-card-actions>
+            </div>
           </md-card-content>
-          <md-card-actions layout="row" layout-align="end center">
-            <md-button ng-click="addEntry()" class="md-raised md-primary">Add</md-button>
-          </md-card-actions>
         </md-card>
-      </div>
 
       <!-- List -->
-      <div flex>
-        <md-content>
-          <md-list flex>
-            <md-list-item class="md-3-line" ng-repeat="gasEntry in gasEntries | orderBy:'-'" ng-click="null">
-              <img src="assets/svg/gas.png" class="md-avatar" alt="" />
-              <div class="md-list-item-text" layout="column">
-                <h3>{{gasEntry.date | date:'fullDate' }}</h3>
-                <h4>{{gasEntry.price | currency:"$":2 }}</h4>
-                <h4>{{gasEntry.l | number:2 }}</h4>
-                <p>{{gasEntry.kms | number:0 }}</p>
-              </div>
-            </md-list-item>
-            <md-divider ></md-divider>
-          </md-list>
-        </md-content>
-      </div>
+          <md-content flex=100 layout-margin>
+            <md-list>
+              <md-list-item class="md-3-line" ng-repeat="gasEntry in gasEntries | orderBy:'-'" ng-click="null">
+                <img src="assets/svg/gas.png" class="md-avatar" alt="" />
+                <div class="md-list-item-text" layout="column">
+                  <h3>{{gasEntry.date | date:'fullDate' }}</h3>
+                  <h4>{{gasEntry.price | currency:"$":2 }}</h4>
+                  <h4>{{gasEntry.l | number:2 }} l</h4>
+                  <p>{{gasEntry.kms | number:0 }} kms</p>
+                </div>
+                <md-divider ></md-divider>
+              </md-list-item>
+            </md-list>
+          </md-content>
     </div>
 
     <script src="../node_modules/angular/angular.js"></script>
