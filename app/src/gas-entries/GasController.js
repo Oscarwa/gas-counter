@@ -75,7 +75,19 @@
           .parent(angular.element(document.querySelector('#app')))
           .clickOutsideToClose(true)
           .title('Gas tracker')
-          .htmlContent('Version 0.1.0 <br /> Last updated: 2016-08-08 <br /> GitHub: <a href="https://github.com/Oscarwa" target="_blank">@Oscarwa</a>')
+          .htmlContent(
+            'Version 0.1.0 <br />' +
+            'GitHub: <a href="https://github.com/Oscarwa/gas-counter" target="_blank">@Oscarwa</a> <br />' +
+            '<br />' +
+            ' # New features (2016-08-08)<br />' +
+            ' - Added gas performance data.<br />' +
+            ' - Added help menu<br />' +
+            ' - Added ability to change gas price.<br />' +
+            '<br />' +
+            ' # ToDos:<br />' +
+            ' - Preserve data on backend<br />' +
+            ' - Multi-car support<br />'
+          )
           .ok('Got it!')
           .targetEvent(ev)
       );
