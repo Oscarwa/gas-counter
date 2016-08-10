@@ -29,6 +29,14 @@
         }
 
       },
+      setDefault: function(id) {
+        var data = $localStorage.cars;
+
+        $localStorage.cars = data.map(function(item) {
+          item.default = item.id === id;
+          return item;
+        });
+      },
       saveCar: function(car) {
         var data = $localStorage.cars || [];
 

@@ -103,7 +103,7 @@
             </div>
             <md-button class="md-secondary md-icon-button">
               <md-icon ng-show="car.default" md-svg-icon="assets/svg/star.svg"></md-icon>
-              <md-icon ng-hide="car.default" md-svg-icon="assets/svg/star_empty.svg"></md-icon>
+              <md-icon ng-hide="car.default" ng-click="setDefault(car)" md-svg-icon="assets/svg/star_empty.svg"></md-icon>
             </md-button>
             <md-divider ></md-divider>
           </md-list-item>

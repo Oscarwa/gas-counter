@@ -21,6 +21,7 @@
     $scope.goHome       = goHome;
     $scope.saveCar      = saveCar;
     $scope.saveCustomCar  = saveCustomCar;
+    $scope.setDefault   = setDefault;
 
     $scope.myCars    = [];
 
@@ -46,6 +47,13 @@
     function clearEntry() {
       $scope.entry = {};
       $scope.showingLastEntry = false;
+    }
+
+    function setDefault(car) {
+      console.log('marked as default', car)
+      carService
+        .setDefault(car.id);
+      reloadInfo();
     }
 
     function saveCar() {
