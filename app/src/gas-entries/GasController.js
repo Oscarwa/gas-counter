@@ -3,7 +3,7 @@
   angular
        .module('gas')
        .controller('GasController', [
-          'gasService', '$scope', '$mdDialog',
+          'gasService', 'carService', '$scope', '$mdDialog', '$location',
           GasController
        ]);
 
@@ -14,15 +14,16 @@
    * @param avatarsService
    * @constructor
    */
-  function GasController( gasService, $scope, $mdDialog ) {
+  function GasController( gasService, carService, $scope, $mdDialog, $location ) {
 
     $scope.gasEntries   = [ ];
     $scope.addEntry     = addEntry;
     $scope.clearEntry   = clearEntry;
     $scope.showChangePricePrompt = showChangePricePrompt;
     $scope.showHelp     = showHelp;
-    $scope.calculatePrice = calculatePrice;
+    $scope.calculateCost = calculateCost;
     $scope.calculateLts = calculateLts;
+    $scope.addCar       = addCar;
 
     // Load all registered Gass
 
@@ -44,6 +45,10 @@
       }
     }
 
+    function addCar() {
+      $location.path('/car')
+    }
+
     function clearEntry() {
       $scope.entry = {};
       $scope.showingLastEntry = false;
@@ -60,9 +65,14 @@
         .then(function(price) {
           $scope.gasPrice = parseFloat(price);
         });
+      carService
+        .loadAllCars()
+        .then(function(cars) {
+          $scope.cars = cars;
+        });
     }
 
-    function calculatePrice() {
+    function calculateCost() {
       $scope.entry.price = Math.round(100 * $scope.entry.l * $scope.gasPrice) / 100;
     }
     function calculateLts() {

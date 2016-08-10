@@ -16,7 +16,6 @@ html, body {
   width: 36px;
 }
 
-
 md-toolbar h3 {
   margin: auto;
   font-weight: 500;
@@ -39,56 +38,27 @@ md-list-item > button {
 
 
 /* Primary content area */
-
-#content {
-  overflow: hidden;
-}
-
-#content  {
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 5px;
-}
-
-#content .md-button.share {
-  background-color: transparent;
+.md-select-car .md-select-header-searchbox-input {
   border: none;
-  width: 48px;
+  outline: none;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+}
+.md-select-car .md-select-header-searchbox {
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+  padding-left: 10.667px;
   height: 48px;
-  margin: 8px auto 16px 0;
-  position: absolute;
-  top: 10px;
-  right: 25px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: auto;
+}
+.md-select-car md-content._md {
+  max-height: 240px; 
 }
 
-#content md-icon.avatar {
-  margin-top: 10px;
-}
-
-#content .md-button.share > md-icon {
-  fill:black;
-  width:36px;
-  height:36px;
-}
-
-md-button.menuBtn > md-icon {
-  fill:white;
-  width:24px;
-  height:24px;
-}
-
-#content .md-button.share:active > md-icon {
-  background-color: #dadada;
-  border-radius: 75%;
-  padding:4px;
-  transition: all 100ms ease-out 30ms;
-}
-
-#content img {
-  display: block;
-  height: auto;
-  max-width: 500px;
-}
 
 /* Utils */
 
