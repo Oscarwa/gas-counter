@@ -1,5 +1,5 @@
 (function(){
   'use strict';
   // Prepare the 'users' module for subsequent registration of controllers and delegates
-  angular.module('gas', ['ngMaterial', 'ngStorage']);
+  angular.module('gas', ['ngMaterial', 'ngStorage', 'core']);
 })();

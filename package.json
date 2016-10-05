@@ -24,6 +24,8 @@
     "angular-messages": "^1.5.5",
     "angular-route": "^1.5.8",
     "angular-sanitize": "^1.5.8",
+    "angularfire": "^2.0.2",
+    "firebase": "^3.4.1",
     "ngstorage": "^0.3.11"
   },
   "devDependencies": {

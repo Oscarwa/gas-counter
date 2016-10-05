@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('car')
-         .service('carService', ['$q', '$localStorage', CarService]);
+         .service('carService', ['$localStorage', '$firebaseArray', 'authService', CarService]);
 
   /**
    * Users DataService
@@ -12,13 +12,21 @@
    * @returns {{loadAll: Function}}
    * @constructor
    */
-  function CarService($q, $localStorage) {
+  function CarService($localStorage, $firebaseArray, authService) {
     // Promise-based API
+
     return {
-      loadAllCars : function() {
-        // Simulate async nature of real remote calls
-        return $q.when($localStorage.cars);
+      loadAllCars: function() {
+        if(authService.user) {
+          var ref = firebase.database().ref('/cars/' + authService.user.uid );
+          return $firebaseArray(ref);
+        }
+        return null;
       },
+      // loadAllCars : function() {
+      //   // Simulate async nature of real remote calls
+      //   return $q.when($localStorage.cars);
+      // },
       getDefaultCar: function() {
         var data = $localStorage.cars;
 
@@ -38,7 +46,7 @@
         });
       },
       saveCar: function(car) {
-        var data = $localStorage.cars || [];
+        //var data = $localStorage.cars || [];
 
         var carToSave = {
           created: new Date().toISOString(),
@@ -46,11 +54,15 @@
           brand: car.brand,
           model: car.model,
           year: car.year,
-          default: (!data || !data.length)
+          //default: (!data || !data.length)
         };
+        
+        var ref = firebase.database().ref('/cars/' + authService.user.uid );
+        var cars = $firebaseArray(ref);
+        cars.$add(carToSave);
 
-        data.push(carToSave);
-        $localStorage.cars = data;
+        // data.push(carToSave);
+        // $localStorage.cars = data;
       }
     };
   }

@@ -37,11 +37,11 @@
     });
 
     function reloadInfo() {
-      carService
+      $scope.myCars = carService
         .loadAllCars()
-        .then(function(cars) {
-          $scope.myCars = cars;
-        });
+        // .then(function(cars) {
+        //   $scope.myCars = cars;
+        // });
     }
 
     function clearEntry() {
