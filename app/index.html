@@ -34,8 +34,8 @@
               <md-icon md-menu-origin md-svg-src="assets/svg/menu.svg"></md-icon>
             </md-button>
             <md-menu-content width="4" >
-              <md-menu-item >
-                <md-button ng-click="showMain()" ng-if="user">
+              <md-menu-item ng-if="user">
+                <md-button ng-click="showMain()">
                   <div layout="row" flex>
                     <p flex>Home</p>
                     <md-icon md-menu-align-target md-svg-src="assets/svg/gas.svg" style="margin: auto 3px auto 0;"></md-icon>
@@ -54,12 +54,12 @@
                 <md-button ng-click="">
                     <div layout="row" flex>
                       <p flex>My profile</p>
-                      <img ng-src="{{user.user.photoURL}}" style="height:30px; width: 30px; border-radius:50%;"/>
+                      <img ng-src="{{user.picture}}" style="height:30px; width: 30px; border-radius:50%;"/>
                     </div>
                 </md-button>
               </md-menu-item >
               <md-menu-item ng-if="user" >
-                <md-button ng-click="">
+                <md-button ng-click="logout()">
                     <div layout="row" flex>
                       <p flex>Logout</p>
                       <md-icon md-menu-align-target md-svg-src="assets/svg/cloud off.svg" style="margin: auto 3px auto 0;"></md-icon>
@@ -79,6 +79,14 @@
                 <md-button ng-click="showHelp()">
                   <div layout="row" flex>
                     <p flex>Help</p>
+                    <md-icon md-menu-align-target md-svg-src="assets/svg/help.svg" style="margin: auto 3px auto 0;"></md-icon>
+                  </div>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item >
+                <md-button ng-click="showFeedback()">
+                  <div layout="row" flex>
+                    <p flex>Feedback</p>
                     <md-icon md-menu-align-target md-svg-src="assets/svg/help.svg" style="margin: auto 3px auto 0;"></md-icon>
                   </div>
                 </md-button>
@@ -121,10 +129,13 @@
     <script src="./src/cars/CarController.js"></script>
     <script src="./src/cars/CarService.js"></script>
     <script src="./src/cars/EdmundsAPIService.js"></script>
+    <script src="./src/info/Info.js"></script>
+    <script src="./src/info/FeedbackController.js"></script>
+    <script src="./src/info/FeedbackService.js"></script>
 
     <script type="text/javascript">
           angular
-              .module('gasApp', ['ngMaterial', 'ngStorage', 'ngSanitize', 'ngRoute', 'firebase', 'core', 'gas', 'car'])
+              .module('gasApp', ['ngMaterial', 'ngStorage', 'ngSanitize', 'ngRoute', 'firebase', 'core', 'gas', 'car', 'info'])
               .config(function($mdThemingProvider, $mdIconProvider, $routeProvider) {
                   $mdThemingProvider.theme('default')
                     .primaryPalette('blue')
@@ -138,6 +149,10 @@
                     .when('/car', {
                       templateUrl: 'src/cars/view/car-add.html',
                       controller: 'CarController'
+                    })
+                    .when('/feedback', {
+                      templateUrl: 'src/info/view/feedback.html',
+                      controller: 'feedbackController'
                     })
                     .otherwise({
                       redirectTo: '/'

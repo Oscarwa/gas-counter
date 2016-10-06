@@ -3,7 +3,7 @@
   angular
        .module('gas')
        .controller('GasController', [
-          'gasService', 'carService', '$scope', '$mdDialog', '$location', 'authService',
+          'gasService', 'carService', '$rootScope', '$scope', '$mdDialog', '$location', 'authService',
           GasController
        ]);
 
@@ -14,7 +14,7 @@
    * @param avatarsService
    * @constructor
    */
-  function GasController( gasService, carService, $scope, $mdDialog, $location, AuthService ) {
+  function GasController( gasService, carService, $rootScope, $scope, $mdDialog, $location, AuthService ) {
 
     $scope.gasEntries   = [ ];
     $scope.addEntry     = addEntry;
@@ -24,13 +24,31 @@
     $scope.calculateCost = calculateCost;
     $scope.calculateLts = calculateLts;
     $scope.addCar       = addCar;
-    $scope.user = null;
+    $scope.showFeedback = showFeedback;
+    $scope.user = AuthService.user;
+
+    // $rootScope.$on('user_logon', function(sender, data) {
+    //   $scope.user = data;
+    //   console.log(  $scope.user);
+    //   reload();
+    // });
+    AuthService.auth.$onAuthStateChanged(function(user) {
+      $scope.user = AuthService.user;
+      //   console.log(  $scope.user);
+      reload();
+    })
 
     $scope.login = function() {
       AuthService.auth.$signInWithPopup("facebook").then(function(user) {
-        $scope.user = user;
-        console.log(  $scope.user.user);
+        //$scope.user = user;
+        //reload();
+        // = AuthService.user;
+        // $scope.user;
+        //console.log(  $scope.user);
       })
+    }
+    $scope.logout = function() {
+      AuthService.auth.$signOut();
     }
 
     // Load all registered Gass
@@ -56,6 +74,10 @@
       $location.path('/car')
     }
 
+    function showFeedback() {
+      $location.path('/feedback')
+    }
+
     function clearEntry() {
       $scope.entry = {};
       $scope.showingLastEntry = false;
@@ -72,11 +94,10 @@
         .then(function(price) {
           $scope.gasPrice = parseFloat(price);
         });
-      $scope.cars = carService
-        .loadAllCars()
-        // .then(function(cars) {
-        //   $scope.cars = cars;
-        // });
+      carService
+        .loadAllCars().$loaded(function(items) {
+          $scope.cars = items;
+        });;
     }
 
     function calculateCost() {

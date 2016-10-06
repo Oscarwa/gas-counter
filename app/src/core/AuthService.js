@@ -3,7 +3,7 @@
   angular
        .module('core')
        .service('authService', [
-          '$firebaseAuth',
+          '$rootScope', '$firebaseAuth',
           AuthService
        ]);
 
@@ -14,7 +14,7 @@
    * @param avatarsService
    * @constructor
    */
-  function AuthService($firebaseAuth) {
+  function AuthService($rootScope, $firebaseAuth) {
 
     this.auth   = $firebaseAuth();
     this.user   = null;
@@ -26,6 +26,7 @@
           email: user.email,
           uid: user.uid
         }
+        //$rootScope.$emit('user_logon', this.user);
       }
     }.bind(this))
   }

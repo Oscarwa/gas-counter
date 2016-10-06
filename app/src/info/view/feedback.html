@@ -1,0 +1,28 @@
+<div layout="column">
+
+  <!-- Form -->
+    <md-card md-theme="default" flex=100>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Feedback</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <form>
+          <div layout="row" layout-wrap>
+            <md-input-container class="md-block" flex=100>
+              <label>Write here your feedback</label>
+              <textarea ng-model="feedback.content" md-maxlength="500" rows="5" md-select-on-focus></textarea>
+            </md-input-container>
+          </div>
+          <div layout="row"  layout-align="end center">
+            <md-card-actions>
+              <md-button ng-click="sendFeedback()" class="md-raised md-primary">Send</md-button>
+              <md-button ng-click="cancel()" class="md-raised">Cancel</md-button>
+            </md-card-actions>
+          </div>
+        </form>
+      </md-card-content>
+    </md-card>
+
+</div>
