@@ -25,7 +25,11 @@
     $scope.calculateLts = calculateLts;
     $scope.addCar       = addCar;
     $scope.showFeedback = showFeedback;
-    $scope.user = AuthService.user;
+    $scope.showMain     = showMain;
+    $scope.user         = AuthService.user;
+    $scope.entry        = {};
+
+    $scope.reloadGasEntries = reloadGasEntries;
 
     // $rootScope.$on('user_logon', function(sender, data) {
     //   $scope.user = data;
@@ -49,6 +53,7 @@
     }
     $scope.logout = function() {
       AuthService.auth.$signOut();
+      AuthService.user = null;
     }
 
     // Load all registered Gass
@@ -78,26 +83,29 @@
       $location.path('/feedback')
     }
 
+    function showMain() {
+      $location.path('/');
+    }
+
     function clearEntry() {
       $scope.entry = {};
       $scope.showingLastEntry = false;
     }
 
     function reload() {
-      gasService
-        .loadAllEntries()
-        .then( function( entries ) {
-          $scope.gasEntries = [].concat(entries);
-        });
-      gasService
-        .getGasPrice()
-        .then(function(price) {
-          $scope.gasPrice = parseFloat(price);
-        });
-      carService
-        .loadAllCars().$loaded(function(items) {
-          $scope.cars = items;
-        });;
+      $scope.gasPrice = parseFloat(gasService.getGasPrice());
+
+      $scope.cars = carService.loadAllCars();
+
+      reloadGasEntries();
+        // .$loaded(function(items) {
+        //   $scope.cars = items;
+        // });;
+    }
+    function reloadGasEntries() {
+      if($scope.entry.car) {
+        $scope.gasEntries = gasService.loadAllEntriesByCar($scope.entry.car);
+      }
     }
 
     function calculateCost() {

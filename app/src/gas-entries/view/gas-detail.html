@@ -11,8 +11,8 @@
               <md-button class="md-primary" ng-click="showChangePricePrompt($event)">{{gasPrice | number:3}}</md-button>
             </div>
             <div flex>
-              <md-select ng-model="entry.car" ng-show="cars">
-                <md-option ng-repeat="car in cars" value="{{car}}" ng-selected="car.default">
+              <md-select ng-model="entry.car" ng-show="cars" ng-change="reloadGasEntries()">
+                <md-option ng-repeat="car in cars" value="{{car.$id}}" ng-selected="car.default">
                   {{car.year}} {{car.brand}} {{car.model}}
                 </md-option>
               </md-select>

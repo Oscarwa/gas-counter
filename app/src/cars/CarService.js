@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('car')
-         .service('carService', ['$rootScope', '$localStorage', '$firebaseArray', 'authService', CarService]);
+         .service('carService', ['$rootScope', '$localStorage', '$firebaseArray', 'firebaseFactory', 'authService', CarService]);
 
   /**
    * Users DataService
@@ -12,56 +12,36 @@
    * @returns {{loadAll: Function}}
    * @constructor
    */
-  function CarService($rootScope, $localStorage, $firebaseArray, authService) {
-    // Promise-based API
+  function CarService($rootScope, $localStorage, $firebaseArray, firebaseFactory, authService) {
 
     return {
       loadAllCars: function() {
-        var ref = firebase.database().ref('/cars/' + (authService.user ? authService.user.uid : '-') );
-        return $firebaseArray(ref);
-      },
-      // loadAllCars : function() {
-      //   // Simulate async nature of real remote calls
-      //   return $q.when($localStorage.cars);
-      // },
-      getDefaultCar: function() {
-        var ref = firebase.database().ref('/cars/' + authService.user.uid );
-        var data = $firebaseArray(ref);
-
-        for(var x = 0; x < data.length; x++) {
-          if(data[x].default) {
-            return data[x];
-          }
-        }
-
+        return $firebaseArray(firebaseFactory.cars.child(authService.user ? authService.user.uid : '-'));
       },
       setDefault: function(id) {
-        var ref = firebase.database().ref('/cars/' + authService.user.uid );
-        var cars = $firebaseArray(ref);
-
-        cars = cars.map(function(item) {
-          item.default = item.id === id;
-          return item;
+        var defaultCar = $firebaseArray(firebaseFactory.cars.child(authService.user.uid))
+          .$loaded(function(items) {
+            for(var i = 0; i < items.length; i++) {
+              if(items[i].$id === id) {
+                items[i].default = true;
+              } else {
+                items[i].default = false;
+              }
+              items.$save(i);
+            }
         });
       },
       saveCar: function(car) {
-        var ref = firebase.database().ref('/cars/' + authService.user.uid );
-        var cars = $firebaseArray(ref);
+        var cars = $firebaseArray(firebaseFactory.cars.child(authService.user.uid));
 
         var carToSave = {
           created: new Date().toISOString(),
-          id: car.id,
           brand: car.brand,
           model: car.model,
-          year: car.year,
-          default: (!cars || !cars.length)
+          year: car.year
         };
 
-
         cars.$add(carToSave);
-
-        // data.push(carToSave);
-        // $localStorage.cars = data;
       }
     };
   }

@@ -22,6 +22,7 @@
     $scope.saveCar      = saveCar;
     $scope.saveCustomCar  = saveCustomCar;
     $scope.setDefault   = setDefault;
+    // $scope.getDefaultCar  = getDefaultCarInfo;
 
     $scope.myCars    = [];
 
@@ -52,9 +53,14 @@
     function setDefault(car) {
       console.log('marked as default', car)
       carService
-        .setDefault(car.id);
+        .setDefault(car.$id);
       reloadInfo();
     }
+
+    // function getDefaultCarInfo(id) {
+    //   //var defaultCar = carService.getDefaultCar();
+    //   return false;
+    // }
 
     function saveCar() {
       //save car info
@@ -62,8 +68,8 @@
         .saveCar({
           brand: $scope.car.brand.name,
           model: $scope.car.model.name,
-          year: $scope.car.year.year,
-          id: $scope.car.year.id
+          year: $scope.car.year.year
+          // id: $scope.car.year.id
         })
 
       goHome();
@@ -75,8 +81,8 @@
         .saveCar({
           brand: $scope.customCar.brand,
           model: $scope.customCar.model,
-          year: $scope.customCar.year,
-          id: new Date().getTime()
+          year: $scope.customCar.year
+          // id: new Date().getTime()
         })
 
       goHome();
