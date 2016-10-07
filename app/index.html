@@ -22,7 +22,7 @@
     </style>
   </head>
 
-  <body ng-app="gasApp" ng-controller="GasController as gasCtrl" ng-cloak id="app">
+  <body ng-app="gasApp" ng-controller="MainController" ng-cloak id="app">
 
     <md-toolbar layout="column">
       <div class="md-toolbar-tools">
@@ -123,6 +123,7 @@
     <script src="./src/core/Core.js"></script>
     <script src="./src/core/AuthService.js"></script>
     <script src="./src/core/FirebaseFactory.js"></script>
+    <script src="./src/core/MainController.js"></script>
     <script src="./src/gas-entries/GasEntries.js"></script>
     <script src="./src/gas-entries/GasController.js"></script>
     <script src="./src/gas-entries/GasService.js"></script>
@@ -143,7 +144,7 @@
                     .accentPalette('red');
 
                   $routeProvider
-                    .when('/', {
+                    .when('/home', {
                       templateUrl: 'src/gas-entries/view/gas-detail.html',
                       controller: 'GasController'
                     })
@@ -158,7 +159,20 @@
                     .otherwise({
                       redirectTo: '/'
                     });
-              });
+              })
+              .run(['$rootScope', '$location', 'authService', function ($rootScope, $location, authService) {
+                    $rootScope.$on('$routeChangeStart', function (event, next) {
+
+                    if (!authService.user && (next.originalPath && next.originalPath !== '/')) {
+                      //console.log('DENY : Redirecting to Login');
+                      event.preventDefault();
+                      $location.path('/');
+                    }
+                    else {
+                      //console.log('ALLOW');
+                    }
+                  });
+              }]);
     </script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

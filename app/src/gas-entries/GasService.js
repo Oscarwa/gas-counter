@@ -26,7 +26,7 @@
       saveEntry: function(entry) {
         var data = $firebaseArray(firebaseFactory.gasEntries.child(authService.user.uid).child(entry.car))
         entry.date = new Date().toISOString();
-        
+
         data.$add(entry);
 
         //var lastEntry = $localStorage.lastEntry;
@@ -49,10 +49,15 @@
         // console.log('save', entry);
       },
       getGasPrice: function() {
-        return 13.98;
+        return $firebaseArray(firebaseFactory.settings.child(authService.user ? authService.user.uid : '-').child('gas'));
       },
       setGasPrice: function(price) {
-        $localStorage.gasPrice = parseFloat(price);
+        var gasPrice = $firebaseArray(firebaseFactory.settings.child(authService.user.uid).child('gas'));
+        if(!!gasPrice.length) {
+          gasPrice.$keyAt(0).value = price;
+        } else {
+          gasPrice.$add({'value': price});
+        }
       }
     };
   }

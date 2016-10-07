@@ -8,7 +8,7 @@
           <div layout="row">
             <div flex>
               Current gas price:
-              <md-button class="md-primary" ng-click="showChangePricePrompt($event)">{{gasPrice | number:3}}</md-button>
+              <md-button class="md-primary" ng-click="showChangePricePrompt($event)">{{gasPrice.value | number:3}}</md-button>
             </div>
             <div flex>
               <md-select ng-model="entry.car" ng-show="cars" ng-change="reloadGasEntries()">
@@ -25,7 +25,7 @@
         <div layout="row" layout-align="center">
           <md-input-container class="md-block" flex=30>
             <label>Cost</label>
-            <input ng-model="entry.price" type="number" placeholder="$ 0.00" ng-blur="calculateLts()">
+            <input ng-model="entry.cost" type="number" placeholder="$ 0.00" ng-blur="calculateLts()">
           </md-input-container>
           <md-input-container class="md-block" flex=30>
             <label>Lts</label>

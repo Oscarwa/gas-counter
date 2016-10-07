@@ -2,7 +2,7 @@
 
   angular
        .module('core')
-       .service('authService', [
+       .factory('authService', [
           '$rootScope', '$firebaseAuth',
           AuthService
        ]);
@@ -28,7 +28,9 @@
         }
         //$rootScope.$emit('user_logon', this.user);
       }
-    }.bind(this))
+    }.bind(this));
+
+    return this;
   }
 
 })();

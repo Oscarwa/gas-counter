@@ -11,7 +11,8 @@
     var service = {
       root: root,
       cars: root.child('cars'),
-      gasEntries: root.child('gas')
+      gasEntries: root.child('gas'),
+      settings: root.child('settings')
     };
 
     return service;

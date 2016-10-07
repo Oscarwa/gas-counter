@@ -31,30 +31,7 @@
 
     $scope.reloadGasEntries = reloadGasEntries;
 
-    // $rootScope.$on('user_logon', function(sender, data) {
-    //   $scope.user = data;
-    //   console.log(  $scope.user);
-    //   reload();
-    // });
-    AuthService.auth.$onAuthStateChanged(function(user) {
-      $scope.user = AuthService.user;
-      //   console.log(  $scope.user);
-      reload();
-    })
-
-    $scope.login = function() {
-      AuthService.auth.$signInWithPopup("facebook").then(function(user) {
-        //$scope.user = user;
-        //reload();
-        // = AuthService.user;
-        // $scope.user;
-        //console.log(  $scope.user);
-      })
-    }
-    $scope.logout = function() {
-      AuthService.auth.$signOut();
-      AuthService.user = null;
-    }
+    
 
     // Load all registered Gass
     reload();
@@ -68,7 +45,8 @@
      * @param menuId
      */
     function addEntry() {
-      if($scope.entry && $scope.entry.price && $scope.entry.l && $scope.entry.kms) {
+      if($scope.entry && $scope.entry.cost && $scope.entry.l && $scope.entry.kms) {
+        $scope.entry.gasPrice = $scope.gasPrice;
         gasService.saveEntry($scope.entry);
         clearEntry();
         reload();
@@ -93,14 +71,16 @@
     }
 
     function reload() {
-      $scope.gasPrice = parseFloat(gasService.getGasPrice());
+
+        gasService.getGasPrice()
+          .$loaded()
+          .then(function(item){
+            $scope.gasPrice = parseFloat(item.value);
+          });
 
       $scope.cars = carService.loadAllCars();
 
       reloadGasEntries();
-        // .$loaded(function(items) {
-        //   $scope.cars = items;
-        // });;
     }
     function reloadGasEntries() {
       if($scope.entry.car) {
@@ -109,10 +89,10 @@
     }
 
     function calculateCost() {
-      $scope.entry.price = Math.round(100 * $scope.entry.l * $scope.gasPrice) / 100;
+      $scope.entry.cost = Math.round(100 * $scope.entry.l * $scope.gasPrice) / 100;
     }
     function calculateLts() {
-      $scope.entry.l = Math.round( 100 * $scope.entry.price / $scope.gasPrice) / 100;
+      $scope.entry.l = Math.round( 100 * $scope.entry.cost / $scope.gasPrice) / 100;
     }
 
     function showHelp(ev) {
