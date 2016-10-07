@@ -18,12 +18,13 @@
       }
     })
 
-    $scope.login = function() {
-      authService.auth.$signInWithPopup("facebook").then(function(user) {});
+    $scope.login = function(provider) {
+      authService.auth.$signInWithPopup(provider).then(function(user) {});
     }
     $scope.logout = function() {
       authService.auth.$signOut();
       authService.user = null;
+      $scope.user = null;
       $location.path('/');
     }
 
@@ -35,6 +36,10 @@
 
     $scope.goHome = function() {
       $location.path('/home');
+    }
+
+    $scope.showFeedback = function() {
+      $location.path('/feedback')
     }
   }
 

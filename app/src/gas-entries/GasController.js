@@ -24,14 +24,13 @@
     $scope.calculateCost = calculateCost;
     $scope.calculateLts = calculateLts;
     $scope.addCar       = addCar;
-    $scope.showFeedback = showFeedback;
     $scope.showMain     = showMain;
     $scope.user         = AuthService.user;
     $scope.entry        = {};
 
     $scope.reloadGasEntries = reloadGasEntries;
 
-    
+
 
     // Load all registered Gass
     reload();
@@ -57,9 +56,7 @@
       $location.path('/car')
     }
 
-    function showFeedback() {
-      $location.path('/feedback')
-    }
+
 
     function showMain() {
       $location.path('/');
