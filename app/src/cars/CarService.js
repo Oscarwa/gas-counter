@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('car')
-         .service('carService', ['$rootScope', '$localStorage', '$firebaseArray', 'firebaseFactory', 'authService', CarService]);
+         .service('carService', ['$rootScope', '$firebaseArray', 'firebaseFactory', 'authService', CarService]);
 
   /**
    * Users DataService
@@ -12,7 +12,7 @@
    * @returns {{loadAll: Function}}
    * @constructor
    */
-  function CarService($rootScope, $localStorage, $firebaseArray, firebaseFactory, authService) {
+  function CarService($rootScope, $firebaseArray, firebaseFactory, authService) {
 
     return {
       loadAllCars: function() {

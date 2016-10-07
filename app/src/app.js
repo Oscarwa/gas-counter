@@ -1,5 +1,5 @@
 angular
-    .module('gasApp', ['ngMaterial', 'ngStorage', 'ngSanitize', 'ngRoute', 'firebase', 'core', 'gas', 'car', 'info'])
+    .module('gasApp', ['ngMaterial', 'ngSanitize', 'ngRoute', 'firebase', 'core', 'gas', 'car', 'info'])
     .config(function($mdThemingProvider, $mdIconProvider, $routeProvider) {
         $mdThemingProvider.theme('default')
           .primaryPalette('blue')
