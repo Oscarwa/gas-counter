@@ -38,7 +38,8 @@
           created: new Date().toISOString(),
           brand: car.brand,
           model: car.model,
-          year: car.year
+          year: car.year,
+          default: car.default
         };
 
         cars.$add(carToSave);

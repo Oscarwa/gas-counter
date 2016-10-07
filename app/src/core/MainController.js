@@ -34,6 +34,9 @@
     }
 
 
+    $scope.goCars = function() {
+      $location.path('/car')
+    }
     $scope.goHome = function() {
       $location.path('/home');
     }

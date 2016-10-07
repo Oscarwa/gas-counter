@@ -3,7 +3,7 @@
   angular
        .module('gas')
        .controller('GasController', [
-          'gasService', 'carService', '$rootScope', '$scope', '$mdDialog', '$location', 'authService',
+          'gasService', 'carService', '$scope', '$mdDialog', 'authService',
           GasController
        ]);
 
@@ -14,7 +14,7 @@
    * @param avatarsService
    * @constructor
    */
-  function GasController( gasService, carService, $rootScope, $scope, $mdDialog, $location, AuthService ) {
+  function GasController( gasService, carService, $scope, $mdDialog, AuthService ) {
 
     $scope.gasEntries   = [ ];
     $scope.addEntry     = addEntry;
@@ -23,8 +23,6 @@
     $scope.showHelp     = showHelp;
     $scope.calculateCost = calculateCost;
     $scope.calculateLts = calculateLts;
-    $scope.addCar       = addCar;
-    $scope.showMain     = showMain;
     $scope.user         = AuthService.user;
     $scope.entry        = {};
 
@@ -52,16 +50,6 @@
       }
     }
 
-    function addCar() {
-      $location.path('/car')
-    }
-
-
-
-    function showMain() {
-      $location.path('/');
-    }
-
     function clearEntry() {
       $scope.entry = {};
       $scope.showingLastEntry = false;
@@ -72,7 +60,11 @@
         gasService.getGasPrice()
           .$loaded()
           .then(function(item){
-            $scope.gasPrice = parseFloat(item.value);
+            if(!item.length) {
+              showChangePricePrompt();
+            } else {
+              $scope.gasPrice = parseFloat(item[0].value);
+            }
           });
 
       $scope.cars = carService.loadAllCars();
@@ -123,7 +115,7 @@
         .placeholder('$ 0.00')
         .ariaLabel('Price')
         .initialValue($scope.gasPrice)
-        .targetEvent(ev)
+        //.targetEvent(ev)
         .ok('Set price!')
         .cancel('Cancel');
       $mdDialog.show(confirm).then(function(result) {
@@ -134,7 +126,7 @@
         $scope.gasPrice = floatResult;
 
       }, function() {
-        //$scope.status = 'You didn\'t name your dog.';
+        $scope.gasPrice = '0';
       });
     };
 

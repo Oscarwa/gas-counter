@@ -8,15 +8,16 @@
           <div layout="row">
             <div flex>
               Current gas price:
-              <md-button class="md-primary" ng-click="showChangePricePrompt($event)">{{gasPrice.value | number:3}}</md-button>
+              <md-button class="md-primary" ng-class="gasPrice == '0' ? 'md-warn' : ''"
+                ng-click="showChangePricePrompt($event)">{{gasPrice | number:3}}</md-button>
             </div>
             <div flex>
-              <md-select ng-model="entry.car" ng-show="cars" ng-change="reloadGasEntries()">
+              <md-select ng-model="entry.car" ng-show="cars.length" ng-change="reloadGasEntries()">
                 <md-option ng-repeat="car in cars" value="{{car.$id}}" ng-selected="car.default">
                   {{car.year}} {{car.brand}} {{car.model}}
                 </md-option>
               </md-select>
-              <md-button ng-hide="cars" class="md-primary" ng-click="addCar()">Add your first car</md-button>
+              <md-button ng-hide="cars.length" class="md-primary" ng-href="#/car">Add your first car</md-button>
             </div>
           </div>
         </md-card-title-text>
