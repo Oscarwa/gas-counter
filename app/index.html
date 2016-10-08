@@ -27,7 +27,9 @@
 
     <md-toolbar layout="column">
       <div class="md-toolbar-tools">
-        <h1>Gas tracker</h1>
+        <h1>
+          <a ng-href="#/">{{'GENERAL.APP_NAME' | translate}}</a>
+        </h1>
         <span flex></span>
         <div layout="column" flex="33" layout-align="center center">
           <md-menu md-position-mode="target-right target" ng-if="user">
@@ -38,7 +40,7 @@
               <md-menu-item >
                 <md-button ng-click="goHome()">
                   <div layout="row" flex>
-                    <p flex>Home</p>
+                    <p flex>{{'MENU.HOME' | translate}}</p>
                     <md-icon md-menu-align-target md-svg-src="assets/svg/gas.svg" style="margin: auto 3px auto 0;"></md-icon>
                   </div>
                 </md-button>
@@ -46,7 +48,7 @@
               <md-menu-item >
                 <md-button ng-click="goCars()">
                     <div layout="row" flex>
-                      <p flex>My cars</p>
+                      <p flex>{{'MENU.MY_CARS' | translate}}</p>
                       <md-icon md-menu-align-target md-svg-src="assets/svg/car.svg" style="margin: auto 3px auto 0;"></md-icon>
                     </div>
                 </md-button>
@@ -62,7 +64,7 @@
               <md-menu-item >
                 <md-button ng-click="logout()">
                     <div layout="row" flex>
-                      <p flex>Logout</p>
+                      <p flex>{{'MENU.LOGOUT' | translate}}</p>
                       <md-icon md-menu-align-target md-svg-src="assets/svg/cloud off.svg" style="margin: auto 3px auto 0;"></md-icon>
                     </div>
                 </md-button>
@@ -87,7 +89,7 @@
               <md-menu-item >
                 <md-button ng-click="showFeedback()">
                   <div layout="row" flex>
-                    <p flex>Feedback</p>
+                    <p flex>{{'MENU.FEEDBACK' | translate}}</p>
                     <md-icon md-menu-align-target md-svg-src="assets/svg/help.svg" style="margin: auto 3px auto 0;"></md-icon>
                   </div>
                 </md-button>
@@ -109,6 +111,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.1/angular-material.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angularFire/2.0.2/angularfire.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.12.1/angular-translate.min.js"></script>
+
+    </script>
 
     <!-- <script src="../node_modules/angular/angular.min.js"></script>
     <script src="../node_modules/angular-route/angular-route.min.js"></script>
@@ -118,7 +123,8 @@
     <script src="../node_modules/ngstorage/ngStorage.min.js"></script>
     <script src="../node_modules/angular-material/angular-material.min.js"></script>
     <script src="../node_modules/firebase/firebase.js"></script>
-    <script src="../node_modules/angularfire/dist/angularfire.js"></script> -->
+    <script src="../node_modules/angularfire/dist/angularfire.js"></script>
+    <script src="../node_modules/angular-translate/dist/angular-translate.min.js"></script> -->
     <script>
       // Initialize Firebase
       var config = {
@@ -135,6 +141,7 @@
     <script src="./src/core/AuthService.js"></script>
     <script src="./src/core/FirebaseFactory.js"></script>
     <script src="./src/core/MainController.js"></script>
+    <script src="./src/core/translations.js"></script>
     <script src="./src/gas-entries/GasEntries.js"></script>
     <script src="./src/gas-entries/GasController.js"></script>
     <script src="./src/gas-entries/GasService.js"></script>

@@ -3,7 +3,7 @@
   angular
        .module('gas')
        .controller('GasController', [
-          'gasService', 'carService', '$scope', '$mdDialog', 'authService',
+          'gasService', 'carService', '$scope', '$mdDialog', '$filter', 'authService',
           GasController
        ]);
 
@@ -14,7 +14,7 @@
    * @param avatarsService
    * @constructor
    */
-  function GasController( gasService, carService, $scope, $mdDialog, AuthService ) {
+  function GasController( gasService, carService, $scope, $mdDialog, $filter, AuthService ) {
 
     $scope.gasEntries   = [ ];
     $scope.addEntry     = addEntry;
@@ -111,13 +111,13 @@
     function showChangePricePrompt(ev) {
     // Appending dialog to document.body to cover sidenav in docs app
       var confirm = $mdDialog.prompt()
-        .title('You like to set a new gas price?')
+        .title($filter('translate')('GAS.PRICE_PROMPT.TITLE'))
         .placeholder('$ 0.00')
         .ariaLabel('Price')
         .initialValue($scope.gasPrice)
         //.targetEvent(ev)
-        .ok('Set price!')
-        .cancel('Cancel');
+        .ok($filter('translate')('GAS.PRICE_PROMPT.SAVE'))
+        .cancel($filter('translate')('GAS.PRICE_PROMPT.CANCEL'));
       $mdDialog.show(confirm).then(function(result) {
         //$scope.status = 'You decided to name your dog ' + result + '.';
         var floatResult = parseFloat(result);

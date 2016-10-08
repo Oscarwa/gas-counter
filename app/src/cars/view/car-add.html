@@ -1,112 +1,114 @@
 <div layout="column">
 
   <!-- Form -->
-    <md-card md-theme="default" flex=100 ng-hide="useCustomCar">
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">New car</span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content>
-        <div layout="row" layout-wrap>
+  <md-card md-theme="default" flex=100 ng-hide="useCustomCar">
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">{{'CAR.TITLE' | translate}}</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+      <div layout="row" layout-wrap>
 
-          <md-input-container flex=40>
-            <label>Brand</label>
-            <md-select ng-model="car.brand"
-                       md-on-close="clearSearchTerm()"
-                       md-on-open="loadMakers()"
-                       data-md-container-class="md-select-car" >
-              <md-select-header class="md-select-header-searchbox">
-                <input ng-model="searchTerm"
-                       type="search"
-                       ng-show="carBrands"
-                       placeholder="Search for a car brand.."
-                       class="md-select-header-searchbox-input _md-text"
-                       id="searchbox-input">
-              </md-select-header>
-              <md-option ng-value="brand" ng-repeat="brand in carBrands | filter:searchTerm">
-                {{brand.name}}
-              </md-option>
-            </md-select>
-          </md-input-container>
+        <md-input-container flex=40>
+          <label>{{'CAR.BRAND' | translate}}</label>
+          <md-select ng-model="car.brand"
+                     md-on-close="clearSearchTerm()"
+                     md-on-open="loadMakers()"
+                     data-md-container-class="md-select-car" >
+            <md-select-header class="md-select-header-searchbox">
+              <input ng-model="searchTerm"
+                     type="search"
+                     ng-show="carBrands"
+                     placeholder="Search for a car brand.."
+                     class="md-select-header-searchbox-input _md-text"
+                     id="searchbox-input">
+            </md-select-header>
+            <md-option ng-value="brand" ng-repeat="brand in carBrands | filter:searchTerm">
+              {{brand.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
 
-          <md-input-container flex=30 >
-            <label>Model</label>
-            <md-select ng-model="car.model">
-              <md-option ng-repeat="model in car.brand.models" ng-value="model">
-                {{model.name}}
-              </md-option>
-            </md-select>
-          </md-input-container>
+        <md-input-container flex=30 >
+          <label>{{'CAR.MODEL' | translate}}</label>
+          <md-select ng-model="car.model">
+            <md-option ng-repeat="model in car.brand.models" ng-value="model">
+              {{model.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
 
-          <md-input-container flex=30 >
-            <label>Year</label>
-            <md-select ng-model="car.year">
-              <md-option ng-repeat="year in car.model.years" ng-value="year">
-                {{year.year}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-        </div>
-        <div layout="row"  layout-align="end center">
-          <md-card-actions>
-            <md-button ng-click="loadCustomCar()" class="md-warn">Can't find your car?</md-button>
-            <md-button ng-click="saveCar()" class="md-raised md-primary">Add</md-button>
-            <md-button ng-click="goHome()" class="md-raised">Cancel</md-button>
-          </md-card-actions>
-        </div>
-      </md-card-content>
-    </md-card>
+        <md-input-container flex=30 >
+          <label>{{'CAR.YEAR' | translate}}</label>
+          <md-select ng-model="car.year">
+            <md-option ng-repeat="year in car.model.years" ng-value="year">
+              {{year.year}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+      <div layout="column"  layout-align="end space-around">
+        <md-card-actions flex>
+          <md-button ng-click="loadCustomCar()" class="md-warn">{{'CAR.NO_CAR' | translate}}</md-button>
+        <!-- </md-card-actions>
+        <md-card-actions flex> -->
+          <md-button ng-click="saveCar()" class="md-raised md-primary">{{'CAR.ADD' | translate}}</md-button>
+          <md-button ng-click="goHome()" class="md-raised">{{'CAR.CANCEL' | translate}}</md-button>
+        </md-card-actions>
+      </div>
+    </md-card-content>
+  </md-card>
 
-    <!-- New custom car -->
-    <md-card md-theme="default" flex=100 ng-show="useCustomCar">
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">New custom car</span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content>
-        <div layout="row" layout-wrap>
+  <!-- New custom car -->
+  <md-card md-theme="default" flex=100 ng-show="useCustomCar">
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">{{'CAR.TITLE_CUSTOM' | translate}}</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+      <div layout="row" layout-wrap>
 
-          <md-input-container flex=40>
-            <label>Brand</label>
-            <input ng-model="customCar.brand">
-          </md-input-container>
+        <md-input-container flex=40>
+          <label>{{'CAR.BRAND' | translate}}</label>
+          <input ng-model="customCar.brand">
+        </md-input-container>
 
-          <md-input-container flex=30 >
-            <label>Model</label>
-            <input ng-model="customCar.model">
-          </md-input-container>
+        <md-input-container flex=30 >
+          <label>{{'CAR.MODEL' | translate}}</label>
+          <input ng-model="customCar.model">
+        </md-input-container>
 
-          <md-input-container flex=30 >
-            <label>Year</label>
-            <input ng-model="customCar.year" type="number">
-          </md-input-container>
-        </div>
-        <div layout="row"  layout-align="end center">
-          <md-card-actions>
-            <md-button ng-click="saveCustomCar()" class="md-raised md-primary">Add</md-button>
-            <md-button ng-click="useCustomCar = false" class="md-raised">Cancel</md-button>
-          </md-card-actions>
-        </div>
-      </md-card-content>
-    </md-card>
+        <md-input-container flex=30 >
+          <label>{{'CAR.YEAR' | translate}}</label>
+          <input ng-model="customCar.year" type="number">
+        </md-input-container>
+      </div>
+      <div layout="row"  layout-align="end center">
+        <md-card-actions>
+          <md-button ng-click="saveCustomCar()" class="md-raised md-primary">{{'CAR.ADD' | translate}}</md-button>
+          <md-button ng-click="useCustomCar = false" class="md-raised">{{'CAR.CANCEL' | translate}}</md-button>
+        </md-card-actions>
+      </div>
+    </md-card-content>
+  </md-card>
 
   <!-- List -->
-      <md-content flex=100 layout-margin>
-        <md-list>
-          <md-list-item class="md-3-line" ng-repeat="car in myCars" ng-click="null">
-            <img src="assets/svg/car.svg" class="md-avatar" alt="" />
-            <div class="md-list-item-text" layout="column">
-              <h4 flex>{{car.brand}} {{car.model}}</h4>
-              <h3 flex>{{car.year}}</h3>
-            </div>
-            <md-button class="md-secondary md-icon-button">
-              <md-icon ng-show="car.default" md-svg-icon="assets/svg/star.svg"></md-icon>
-              <md-icon ng-hide="car.default" ng-click="setDefault(car)" md-svg-icon="assets/svg/star_empty.svg"></md-icon>
-            </md-button>
-            <md-divider ></md-divider>
-          </md-list-item>
-        </md-list>
-      </md-content>
+  <md-content flex=100 layout-margin>
+    <md-list>
+      <md-list-item class="md-3-line" ng-repeat="car in myCars" ng-click="null">
+        <img src="assets/svg/car.svg" class="md-avatar" alt="" />
+        <div class="md-list-item-text" layout="column">
+          <h4 flex>{{car.brand}} {{car.model}}</h4>
+          <h3 flex>{{car.year}}</h3>
+        </div>
+        <md-button class="md-secondary md-icon-button">
+          <md-icon ng-show="car.default" md-svg-icon="assets/svg/star.svg"></md-icon>
+          <md-icon ng-hide="car.default" ng-click="setDefault(car)" md-svg-icon="assets/svg/star_empty.svg"></md-icon>
+        </md-button>
+        <md-divider ></md-divider>
+      </md-list-item>
+    </md-list>
+  </md-content>
 </div>

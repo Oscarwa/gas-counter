@@ -2,7 +2,7 @@
     <md-card flex=70>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">Login</span>
+          <span class="md-headline">{{'LOGIN.TITLE' | translate}}</span>
         </md-card-title-text>
         <!-- <md-card-title-media>
           <div class="md-media-lg card-media"></div>
@@ -10,8 +10,8 @@
       </md-card-title>
       <md-card-content >
         <div layout="column" layout-align"center center">
-          <md-button class="md-raised login-btn fb-login" ng-click="login('facebook')">Facebook login</md-button>
-          <md-button class="md-raised login-btn g-login" ng-click="login('google')">Google login</md-button>
+          <md-button class="md-raised login-btn fb-login" ng-click="login('facebook')">{{'LOGIN.LOGIN_WITH' | translate}} Facebook</md-button>
+          <md-button class="md-raised login-btn g-login" ng-click="login('google')">{{'LOGIN.LOGIN_WITH' | translate}} Google</md-button>
         </div>
       </md-card-content>
 

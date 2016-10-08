@@ -4,10 +4,10 @@
     <md-card md-theme="default" flex=100>
       <md-card-title>
         <md-card-title-text>
-          <span class="md-headline">New gas entry</span>
+          <span class="md-headline">{{ 'GAS.TITLE' | translate}}</span>
           <div layout="row">
             <div flex>
-              Current gas price:
+              {{ 'GAS.CURRENT_GAS_PRICE' | translate}}:
               <md-button class="md-primary" ng-class="gasPrice == '0' ? 'md-warn' : ''"
                 ng-click="showChangePricePrompt($event)">{{gasPrice | number:3}}</md-button>
             </div>
@@ -17,7 +17,7 @@
                   {{car.year}} {{car.brand}} {{car.model}}
                 </md-option>
               </md-select>
-              <md-button ng-hide="cars.length" class="md-primary" ng-href="#/car">Add your first car</md-button>
+              <md-button ng-hide="cars.length" class="md-primary" ng-href="#/car">{{ 'GAS.ADD_CAR' | translate}}</md-button>
             </div>
           </div>
         </md-card-title-text>
@@ -25,22 +25,22 @@
       <md-card-content>
         <div layout="row" layout-align="center">
           <md-input-container class="md-block" flex=30>
-            <label>Cost</label>
+            <label>{{ 'GAS.COST' | translate}}</label>
             <input ng-model="entry.cost" type="number" placeholder="$ 0.00" ng-blur="calculateLts()">
           </md-input-container>
           <md-input-container class="md-block" flex=30>
-            <label>Lts</label>
+            <label>{{ 'GAS.VOLUME' | translate}}</label>
             <input ng-model="entry.l" type="number" placeholder="40.00" ng-blur="calculateCost()">
           </md-input-container>
           <md-input-container class="md-block" flex=40>
-            <label>KMs</label>
+            <label>{{ 'GAS.MILEAGE' | translate}}</label>
             <input ng-model="entry.kms" type="number" placeholder="100000">
           </md-input-container>
         </div>
         <div layout="row"  layout-align="end center">
           <md-card-actions>
-            <md-button ng-click="addEntry()" class="md-raised md-primary">Add</md-button>
-            <md-button ng-click="clearEntry()" class="md-raised">Clear</md-button>
+            <md-button ng-click="addEntry()" class="md-raised md-primary">{{ 'GAS.SAVE' | translate}}</md-button>
+            <md-button ng-click="clearEntry()" class="md-raised">{{ 'GAS.CLEAR' | translate}}</md-button>
           </md-card-actions>
         </div>
       </md-card-content>
@@ -53,12 +53,12 @@
             <img src="assets/svg/gas.png" class="md-avatar" alt="" />
             <div class="md-list-item-text" layout="column">
               <h4 flex>{{gasEntry.date | date:'fullDate' }}</h4>
-              <h3 flex>{{gasEntry.price | currency:"$":2 }}</h3>
+              <h3 flex>{{gasEntry.cost | currency:"$":2 }}</h3>
               <div flex>
-                <h3>{{gasEntry.l | number:2 }} l</h3>
-                <p ng-show="gasEntry.kmDiffNext">Performance: {{gasEntry.kmDiffNext / gasEntry.l | number:3}} km/l ({{gasEntry.kmDiffNext | number:0}}/{{gasEntry.l | number:1}})</p>
+                <h3>{{gasEntry.l | number:2 }} {{ 'GAS.VOLUME_UNIT' | translate}}</h3>
+                <p ng-show="gasEntry.kmDiffNext">{{ 'GAS.PERFORMANCE' | translate}}: {{gasEntry.kmDiffNext / gasEntry.l | number:3}} {{ 'GAS.DISTANCE_UNIT' | translate}}/{{ 'GAS.VOLUME_UNIT' | translate}} ({{gasEntry.kmDiffNext | number:0}}/{{gasEntry.l | number:1}})</p>
               </div>
-              <p>{{gasEntry.kms | number:0 }} kms <span ng-show="gasEntry.kmDiffPrevious">[{{gasEntry.kmDiff | number}} kms since last entry]</span></p>
+              <p>{{gasEntry.kms | number:0 }} {{ 'GAS.MILEAGE' | translate}} <span ng-show="gasEntry.kmDiffPrevious">[{{gasEntry.kmDiff | number}} {{ 'GAS.DISTANCE_UNIT' | translate}}s {{ 'GAS.DISTANCE_DIFF' | translate}}]</span></p>
             </div>
             <md-divider ></md-divider>
           </md-list-item>
