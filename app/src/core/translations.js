@@ -35,6 +35,7 @@ angular.module('core')
         'DISTANCE_DIFF': 'since last entry',
         'SAVE': '@:GENERAL.ADD',
         'CLEAR': '@:GENERAL.CLEAR',
+        'SAVE_SUCCESS': 'Info saved',
         'PRICE_PROMPT': {
           'TITLE': 'Want to set a new gas price?',
           'CANCEL': '@:GENERAL.CANCEL',
@@ -90,6 +91,7 @@ angular.module('core')
         'DISTANCE_DIFF': 'desde última carga',
         'SAVE': '@:GENERAL.ADD',
         'CLEAR': '@:GENERAL.CLEAR',
+        'SAVE_SUCCESS': 'Información guardada',
         'PRICE_PROMPT': {
           'TITLE': '¿Quieres asignar un nuevo precio de gasolina?',
           'CANCEL': '@:GENERAL.CANCEL',

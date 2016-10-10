@@ -9,7 +9,7 @@
 
 
     return {
-      showSimpleToast: function(msg) {
+      showToast: function(msg) {
 
           $mdToast.show(
             $mdToast.simple()
