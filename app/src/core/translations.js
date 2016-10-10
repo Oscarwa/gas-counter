@@ -25,6 +25,7 @@ angular.module('core')
         'TITLE': 'New gas entry',
         'CURRENT_GAS_PRICE': 'Current gas price',
         'ADD_CAR': 'Add your first car',
+        'YOUR_CAR': 'Select your car',
         'COST': 'Cost',
         'VOLUME': 'Lts',
         'MILEAGE': 'KMs',
@@ -79,6 +80,7 @@ angular.module('core')
         'TITLE': 'Nueva carga',
         'CURRENT_GAS_PRICE': 'Precio actual',
         'ADD_CAR': 'Agrega tu primer vehículo',
+        'YOUR_CAR': 'Selecciona tu vehículo',
         'COST': 'Costo',
         'VOLUME': 'Lts',
         'MILEAGE': 'KMs',
@@ -115,8 +117,9 @@ angular.module('core')
       'en_*': 'en',
       'es_*': 'es'
     })
-    .determinePreferredLanguage();
-    // .preferredLanguage('en');
+    .determinePreferredLanguage()
+    // .preferredLanguage('en')
+    .useSanitizeValueStrategy('escape');
 }]);
 
 })();

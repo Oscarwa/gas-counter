@@ -3,7 +3,7 @@
   angular
        .module('gas')
        .controller('GasController', [
-          'gasService', 'carService', '$scope', '$mdDialog', '$filter', 'authService',
+          'gasService', 'carService', '$scope', '$mdDialog', '$filter', 'authService', 'Utils',
           GasController
        ]);
 
@@ -14,7 +14,7 @@
    * @param avatarsService
    * @constructor
    */
-  function GasController( gasService, carService, $scope, $mdDialog, $filter, AuthService ) {
+  function GasController( gasService, carService, $scope, $mdDialog, $filter, AuthService, Utils ) {
 
     $scope.gasEntries   = [ ];
     $scope.addEntry     = addEntry;
@@ -42,16 +42,20 @@
      * @param menuId
      */
     function addEntry() {
-      if($scope.entry && $scope.entry.cost && $scope.entry.l && $scope.entry.kms) {
+      if(this.gasForm.$valid) {
         $scope.entry.gasPrice = $scope.gasPrice;
         gasService.saveEntry($scope.entry);
-        clearEntry();
+        clearEntry(this.gasForm);
         reload();
       }
     }
 
-    function clearEntry() {
+    function clearEntry(form) {
+      //$scope.gasForm.$reset();
+      form = form || this.gasForm;
       $scope.entry = {};
+      form.$setPristine();
+      form.$setUntouched();
       $scope.showingLastEntry = false;
     }
 

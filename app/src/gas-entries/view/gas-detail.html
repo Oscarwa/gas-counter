@@ -2,48 +2,51 @@
 
   <!-- Form -->
     <md-card md-theme="default" flex=100>
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">{{ 'GAS.TITLE' | translate}}</span>
-          <div layout="row">
-            <div flex>
-              {{ 'GAS.CURRENT_GAS_PRICE' | translate}}:
-              <md-button class="md-primary" ng-class="gasPrice == '0' ? 'md-warn' : ''"
-                ng-click="showChangePricePrompt($event)">{{gasPrice | number:3}}</md-button>
+      <form name='gasForm' novalidate ng-submit="addEntry()">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{ 'GAS.TITLE' | translate}}</span>
+            <div layout="row">
+              <div flex>
+                {{ 'GAS.CURRENT_GAS_PRICE' | translate}}:
+                <md-button class="md-primary" ng-class="gasPrice == '0' ? 'md-warn' : ''"
+                  ng-click="showChangePricePrompt($event)">{{gasPrice | number:3}}</md-button>
+              </div>
+              <md-input-container flex>
+                <label>{{'GAS.YOUR_CAR' | translate}}</label>
+                <md-select ng-model="entry.car" ng-show="cars.length" ng-change="reloadGasEntries()" required>
+                  <md-option ng-repeat="car in cars" value="{{car.$id}}" ng-selected="car.default">
+                    {{car.year}} {{car.brand}} {{car.model}}
+                  </md-option>
+                </md-select>
+                <md-button ng-hide="cars.length" class="md-primary md-warn" ng-href="#/car">{{ 'GAS.ADD_CAR' | translate}}</md-button>
+              </md-input-container>
             </div>
-            <div flex>
-              <md-select ng-model="entry.car" ng-show="cars.length" ng-change="reloadGasEntries()">
-                <md-option ng-repeat="car in cars" value="{{car.$id}}" ng-selected="car.default">
-                  {{car.year}} {{car.brand}} {{car.model}}
-                </md-option>
-              </md-select>
-              <md-button ng-hide="cars.length" class="md-primary" ng-href="#/car">{{ 'GAS.ADD_CAR' | translate}}</md-button>
-            </div>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <div layout="row" layout-align="center">
+            <md-input-container class="md-block" flex=30>
+              <label>{{ 'GAS.COST' | translate}}</label>
+              <input ng-model="entry.cost" type="number" placeholder="$ 0.00" ng-blur="calculateLts()" required>
+            </md-input-container>
+            <md-input-container class="md-block" flex=30 >
+              <label>{{ 'GAS.VOLUME' | translate}}</label>
+              <input ng-model="entry.l" type="number" placeholder="40.00" ng-blur="calculateCost()" required>
+            </md-input-container>
+            <md-input-container class="md-block" flex=40>
+              <label>{{ 'GAS.MILEAGE' | translate}}</label>
+              <input ng-model="entry.kms" type="number" placeholder="100000" required>
+            </md-input-container>
           </div>
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content>
-        <div layout="row" layout-align="center">
-          <md-input-container class="md-block" flex=30>
-            <label>{{ 'GAS.COST' | translate}}</label>
-            <input ng-model="entry.cost" type="number" placeholder="$ 0.00" ng-blur="calculateLts()">
-          </md-input-container>
-          <md-input-container class="md-block" flex=30>
-            <label>{{ 'GAS.VOLUME' | translate}}</label>
-            <input ng-model="entry.l" type="number" placeholder="40.00" ng-blur="calculateCost()">
-          </md-input-container>
-          <md-input-container class="md-block" flex=40>
-            <label>{{ 'GAS.MILEAGE' | translate}}</label>
-            <input ng-model="entry.kms" type="number" placeholder="100000">
-          </md-input-container>
-        </div>
-        <div layout="row"  layout-align="end center">
-          <md-card-actions>
-            <md-button ng-click="addEntry()" class="md-raised md-primary">{{ 'GAS.SAVE' | translate}}</md-button>
-            <md-button ng-click="clearEntry()" class="md-raised">{{ 'GAS.CLEAR' | translate}}</md-button>
-          </md-card-actions>
-        </div>
-      </md-card-content>
+          <div layout="row"  layout-align="end center">
+            <md-card-actions>
+              <md-button type="submit" ng-disabled="gasForm.$invalid" class="md-raised md-primary">{{ 'GAS.SAVE' | translate}}</md-button>
+              <md-button ng-click="clearEntry()" class="md-raised">{{ 'GAS.CLEAR' | translate}}</md-button>
+            </md-card-actions>
+          </div>
+        </md-card-content>
+      </form>
     </md-card>
 
   <!-- List -->

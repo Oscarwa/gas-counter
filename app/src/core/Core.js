@@ -1,5 +1,5 @@
 (function(){
   'use strict';
   // Prepare the 'users' module for subsequent registration of controllers and delegates
-  angular.module('core', ['firebase']);
+  angular.module('core', ['firebase', 'ngMaterial']);
 })();
