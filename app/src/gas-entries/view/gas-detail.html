@@ -39,12 +39,25 @@
               <input ng-model="entry.kms" type="number" placeholder="100000" required>
             </md-input-container>
           </div>
-          <div layout="row"  layout-align="end center">
-            <md-card-actions>
+          <md-card-actions>
+            <div layout="row"  layout-align="start center">
+              <md-button ng-if="!location.coords" ng-click="activateGPS()" class="md-raised">{{'GAS.USE_LOCATION' | translate}}</md-button>
+              <div ng-if="location.coords">
+                <md-button class="md-fab" aria-label="Refresh location" ng-click="activateGPS()">
+                  <md-icon md-svg-src="assets/svg/location.svg"></md-icon>
+                  <md-tooltip md-direction="right">
+                    {{location.coords.latitude | number:5}}, {{location.coords.longitude | number:5}}
+                  </md-tooltip>
+                </md-button>
+              </div>
+            </div>
+            <!-- </md-card-actions>
+            <md-card-actions flex> -->
+            <div layout="row"  layout-align="end center">
               <md-button type="submit" ng-disabled="gasForm.$invalid" class="md-raised md-primary">{{ 'GAS.SAVE' | translate}}</md-button>
               <md-button ng-click="clearEntry()" class="md-raised">{{ 'GAS.CLEAR' | translate}}</md-button>
-            </md-card-actions>
-          </div>
+            </div>
+          </md-card-actions>
         </md-card-content>
       </form>
     </md-card>

@@ -23,8 +23,10 @@
     $scope.showHelp     = showHelp;
     $scope.calculateCost = calculateCost;
     $scope.calculateLts = calculateLts;
+    $scope.activateGPS  = activateGPS;
     $scope.user         = AuthService.user;
     $scope.entry        = {};
+    $scope.location     = {};
 
     $scope.reloadGasEntries = reloadGasEntries;
 
@@ -33,9 +35,21 @@
     // Load all registered Gass
     reload();
 
+
     // *********************************
     // Internal methods
     // *********************************
+
+    function activateGPS() {
+      Utils.getCurrentPosition().then(
+        function(position) {
+          console.log(position);
+          $scope.location = position;
+        },
+        function(error) {
+          console.log(error);
+        });
+    };
 
     /**
      * Select the current avatars
