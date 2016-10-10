@@ -50,6 +50,7 @@ angular.module('core')
         'YEAR': 'Year',
         'NO_CAR': 'Can\'t find your car?',
         'ADD': '@:GENERAL.ADD',
+        'ADD_SUCESS': 'Car saved',
         'CANCEL': '@:GENERAL.CANCEL'
       },
       'FEEDBACK': {
@@ -106,6 +107,7 @@ angular.module('core')
         'YEAR': 'Año',
         'NO_CAR': '¿No encuentras tu vehículo?',
         'ADD': '@:GENERAL.ADD',
+        'ADD_SUCESS': 'Vehículo guardado',
         'CANCEL': '@:GENERAL.CANCEL'
       },
       'FEEDBACK': {

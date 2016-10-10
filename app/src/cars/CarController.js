@@ -3,7 +3,7 @@
   angular
        .module('car')
        .controller('CarController', [
-          'edmundsAPIService', 'carService', '$scope', '$location',
+          'edmundsAPIService', 'carService', '$scope', 'Utils',
           CarController
        ]);
 
@@ -14,11 +14,12 @@
    * @param avatarsService
    * @constructor
    */
-  function CarController( edmundsAPIService, carService, $scope, $location ) {
+  function CarController( edmundsAPIService, carService, $scope, Utils) {
 
     $scope.loadMakers   = loadMakers;
     $scope.clearSearchTerm  = clearSearchTerm;
-    $scope.goHome       = goHome;
+    $scope.cancel       = cancel;
+    $scope.cancelCustom = cancelCustom;
     $scope.saveCar      = saveCar;
     $scope.saveCustomCar  = saveCustomCar;
     $scope.setDefault   = setDefault;
@@ -40,29 +41,12 @@
     });
 
     function reloadInfo() {
-      $scope.myCars = carService
-        .loadAllCars()
-        // .then(function(cars) {
-        //   $scope.myCars = cars;
-        // });
-    }
-
-    function clearEntry() {
-      $scope.entry = {};
-      $scope.showingLastEntry = false;
+      $scope.myCars = carService.loadAllCars();
     }
 
     function setDefault(car) {
-      console.log('marked as default', car)
-      carService
-        .setDefault(car.$id);
-      reloadInfo();
+      carService.setDefault(car.$id);
     }
-
-    // function getDefaultCarInfo(id) {
-    //   //var defaultCar = carService.getDefaultCar();
-    //   return false;
-    // }
 
     function saveCar() {
       //save car info
@@ -73,8 +57,8 @@
           year: $scope.car.year.year,
           default: !$scope.myCars.length
         })
-
-      goHome();
+      Utils.showToast('CAR.ADD_SUCESS');
+      cancel(this.carForm);
     }
 
     function loadCustomCar() {
@@ -89,14 +73,30 @@
     function saveCustomCar() {
       //save car info
       $scope.customCar.default = !$scope.myCars.length;
-      carService
-        .saveCar($scope.customCar);
-
-      goHome();
+      carService.saveCar($scope.customCar);
+      Utils.showToast('CAR.ADD_SUCESS');
+      cancelCustom(this.customCarForm, this.carForm);
     }
 
-    function goHome() {
-      $location.path('/');
+    function cancel(form) {
+      var form = form || this.carForm;
+      form.$setPristine();
+      form.$setUntouched();
+      $scope.car = {};
+    }
+    function cancelCustom(form, carForm) {
+      var form = form || this.customCarForm;
+      form.$setPristine();
+      form.$setUntouched();
+      $scope.customCar = {};
+
+      if(carForm) {
+        carForm.$setPristine();
+        carForm.$setUntouched();
+        $scope.car = {};
+      }
+
+      $scope.useCustomCar = false
     }
 
     function clearSearchTerm() {

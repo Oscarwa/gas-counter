@@ -3,9 +3,9 @@
 
   angular
     .module('core')
-    .factory('Utils', ['$mdToast', Utils]);
+    .factory('Utils', ['$mdToast', '$filter', Utils]);
 
-  function Utils($mdToast) {
+  function Utils($mdToast, $filter) {
 
 
     return {
@@ -13,7 +13,7 @@
 
           $mdToast.show(
             $mdToast.simple()
-              .textContent(msg)
+              .textContent($filter('translate')(msg))
               .position('bottom right' )
               .hideDelay(3000)
           );

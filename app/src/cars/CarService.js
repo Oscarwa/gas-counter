@@ -22,11 +22,7 @@
         var defaultCar = $firebaseArray(firebaseFactory.cars.child(authService.user.uid))
           .$loaded(function(items) {
             for(var i = 0; i < items.length; i++) {
-              if(items[i].$id === id) {
-                items[i].default = true;
-              } else {
-                items[i].default = false;
-              }
+              items[i].default = items[i].$id === id;
               items.$save(i);
             }
         });

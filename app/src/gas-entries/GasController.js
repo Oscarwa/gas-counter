@@ -45,7 +45,7 @@
       if(this.gasForm.$valid) {
         $scope.entry.gasPrice = $scope.gasPrice;
         gasService.saveEntry($scope.entry);
-        Utils.showToast($filter('translate')('GAS.SAVE_SUCCESS'))
+        Utils.showToast('GAS.SAVE_SUCCESS')
         clearEntry(this.gasForm);
         reload();
       }
@@ -54,9 +54,9 @@
     function clearEntry(form) {
       //$scope.gasForm.$reset();
       form = form || this.gasForm;
-      $scope.entry = {};
       form.$setPristine();
       form.$setUntouched();
+      $scope.entry = {};
       $scope.showingLastEntry = false;
     }
 
