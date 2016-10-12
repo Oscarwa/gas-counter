@@ -23,11 +23,31 @@
       readEntries: function() {
         console.log('read');
       },
-      saveEntry: function(entry) {
+      saveEntry: function(entry, previousEntry) {
         var data = $firebaseArray(firebaseFactory.gasEntries.child(authService.user.uid).child(entry.car))
         entry.date = new Date().toISOString();
 
         data.$add(entry);
+
+
+
+        // Save days since last entry
+        var timeDiff = Math.abs(new Date(entry.date).getTime() - new Date(previousEntry.date).getTime());
+        var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        //Save kms since last entry.
+        var kmsDiff = entry.kms - previousEntry.kms;
+        //previousEntry.kmDiff = kmsDiff;
+
+        firebaseFactory.gasEntries
+          .child(authService.user.uid)
+          .child(previousEntry.car)
+          .child(previousEntry.$id)
+          .update({
+            kmDiff: kmsDiff,
+            daysDiff: daysDiff
+        });
+
+
 
         //var lastEntry = $localStorage.lastEntry;
         //if(!!lastEntry) {
@@ -52,12 +72,7 @@
         return $firebaseArray(firebaseFactory.settings.child(authService.user.uid).child('gas'));
       },
       setGasPrice: function(price) {
-        var gasPrice = $firebaseArray(firebaseFactory.settings.child(authService.user.uid).child('gas'));
-        if(!!gasPrice.length) {
-          gasPrice.$keyAt(0).value = price;
-        } else {
-          gasPrice.$add({'value': price});
-        }
+        firebaseFactory.settings.child(authService.user.uid).child('gas').set({'value': price});
       }
     };
   }

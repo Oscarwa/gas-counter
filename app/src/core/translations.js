@@ -3,7 +3,7 @@
 angular.module('core')
   .config(['$translateProvider', function ($translateProvider) {
   $translateProvider
-    .translations('en', { 
+    .translations('en', {
       'LOGIN': {
         'TITLE': 'Login',
         'LOGIN_WITH': 'Login with'
@@ -33,6 +33,8 @@ angular.module('core')
         'DISTANCE_UNIT': 'km',
         'PERFORMANCE': 'Performance',
         'DISTANCE_DIFF': 'since last entry',
+        'LOAD_STATS': 'Fuel load lasted',
+        'DAYS': 'days ago',
         'USE_LOCATION': 'Activate GPS',
         'NO_RESULTS': 'No gas stations found',
         'SAVE': '@:GENERAL.ADD',
@@ -91,7 +93,9 @@ angular.module('core')
         'VOLUME_UNIT': 'l',
         'DISTANCE_UNIT': 'km',
         'PERFORMANCE': 'Desempeño',
-        'DISTANCE_DIFF': 'desde última carga',
+        'DISTANCE_DIFF': 'desde última carga hace',
+        'LOAD_STATS': 'Esta carga rindió',
+        'DAYS': 'días',
         'USE_LOCATION': 'Activar GPS',
         'NO_RESULTS': 'No se encontraron resultados',
         'SAVE': '@:GENERAL.ADD',

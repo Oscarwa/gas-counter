@@ -36,7 +36,7 @@
             </md-input-container>
             <md-input-container class="md-block" flex=40>
               <label>{{ 'GAS.MILEAGE' | translate}}</label>
-              <input ng-model="entry.kms" type="number" min="0" max="999999" placeholder="100000" required>
+              <input ng-model="entry.kms" type="number" min="{{lastEntry.kms}}" max="999999" placeholder="{{lastEntry.kms}}" required>
             </md-input-container>
           </div>
           <md-card-actions>
@@ -72,9 +72,9 @@
               <h3 flex>{{gasEntry.cost | currency:"$":2 }}</h3>
               <div flex>
                 <h3>{{gasEntry.l | number:2 }} {{ 'GAS.VOLUME_UNIT' | translate}}</h3>
-                <p ng-show="gasEntry.kmDiffNext">{{ 'GAS.PERFORMANCE' | translate}}: {{gasEntry.kmDiffNext / gasEntry.l | number:3}} {{ 'GAS.DISTANCE_UNIT' | translate}}/{{ 'GAS.VOLUME_UNIT' | translate}} ({{gasEntry.kmDiffNext | number:0}}/{{gasEntry.l | number:1}})</p>
+                <p ng-show="gasEntry.kmDiff">{{ 'GAS.PERFORMANCE' | translate}}: {{gasEntry.kmDiff / gasEntry.l | number:3}} {{ 'GAS.DISTANCE_UNIT' | translate}}/{{ 'GAS.VOLUME_UNIT' | translate}}  ({{gasEntry.kmDiff | number:0}}/{{gasEntry.l | number:1}})</p>
               </div>
-              <p>{{gasEntry.kms | number:0 }} {{ 'GAS.MILEAGE' | translate}} <span ng-show="gasEntry.kmDiffPrevious">[{{gasEntry.kmDiff | number}} {{ 'GAS.DISTANCE_UNIT' | translate}}s {{ 'GAS.DISTANCE_DIFF' | translate}}]</span></p>
+              <p>{{gasEntry.kms | number:0 }} {{ 'GAS.MILEAGE' | translate}} <span ng-show="gasEntry.kmDiff">[{{'GAS.LOAD_STATS' | translate}} {{gasEntry.kmDiff | number}} {{ 'GAS.DISTANCE_UNIT' | translate}}s @ {{gasEntry.daysDiff}} {{'GAS.DAYS' | translate}}]</span></p>
             </div>
             <md-divider ></md-divider>
           </md-list-item>

@@ -109,7 +109,7 @@
     function addEntry() {
       if(this.gasForm.$valid) {
         $scope.entry.gasPrice = $scope.gasPrice;
-        gasService.saveEntry($scope.entry);
+        gasService.saveEntry($scope.entry, $scope.lastEntry);
         Utils.showToast('GAS.SAVE_SUCCESS')
         clearEntry(this.gasForm);
         reload();
@@ -133,7 +133,7 @@
             if(!item.length) {
               showChangePricePrompt();
             } else {
-              $scope.gasPrice = parseFloat(item[0].value);
+              $scope.gasPrice = parseFloat(item[0].$value);
             }
           });
 
@@ -143,7 +143,15 @@
     }
     function reloadGasEntries() {
       if($scope.entry.car) {
-        $scope.gasEntries = gasService.loadAllEntriesByCar($scope.entry.car);
+        gasService.loadAllEntriesByCar($scope.entry.car).$loaded().then(function(items) {
+          $scope.gasEntries = items;
+          if(items.length) {
+            $scope.lastEntry = items[items.length - 1];
+          } else {
+            $scope.lastEntry = {kms: 0};
+          }
+
+        });
       }
     }
 
