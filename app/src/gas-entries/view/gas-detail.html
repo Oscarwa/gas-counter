@@ -40,7 +40,7 @@
             </md-input-container>
           </div>
           <md-card-actions>
-            <div layout="row"  layout-align="start center">
+            <div layout="row"  layout-align="start center" ng-if="false">
               <md-button ng-if="!location.coords" ng-click="activateGPS()" class="md-raised">{{'GAS.USE_LOCATION' | translate}}</md-button>
               <div ng-if="location.coords">
                 <md-button class="md-fab" aria-label="Refresh location" ng-click="showMapDialog($event)">
