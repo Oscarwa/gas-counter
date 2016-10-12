@@ -3,7 +3,7 @@
 angular.module('core')
   .config(['$translateProvider', function ($translateProvider) {
   $translateProvider
-    .translations('en', {
+    .translations('en', { 
       'LOGIN': {
         'TITLE': 'Login',
         'LOGIN_WITH': 'Login with'
