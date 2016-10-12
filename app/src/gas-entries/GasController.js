@@ -24,6 +24,7 @@
     $scope.calculateCost = calculateCost;
     $scope.calculateLts = calculateLts;
     $scope.activateGPS  = activateGPS;
+    $scope.showMapDialog = showMapDialog;
     $scope.user         = AuthService.user;
     $scope.entry        = {};
     $scope.location     = {};
@@ -45,6 +46,7 @@
         function(position) {
           console.log(position);
           $scope.location = position;
+          searchGasStationNearby(position);
         },
         function(error) {
           console.log(error);
@@ -55,6 +57,55 @@
      * Select the current avatars
      * @param menuId
      */
+     var map;
+     function searchGasStationNearby(pos) {
+       var point = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+
+       map = new google.maps.Map(document.getElementById('map'), {
+         center: point,
+         zoom: 15
+       });
+
+       var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: point,
+          //radius: 300,
+          types: ['gas_station'],
+          rankBy: google.maps.places.RankBy.DISTANCE
+        }, function(results, status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            // console.info('Gas stations found:');
+            // for (var i = 0; i < results.length; i++) {
+              //createMarker(results[i]);
+              // console.log(results[i].name + ' - ' + results[i].vicinity);
+            // }
+            Utils.showToast(results[0].name + ' - ' + results[0].vicinity)
+          } else if(status === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+            Utils.showToast('GAS.NO_RESULTS');
+          }
+        });
+     };
+     function showMapDialog(ev) {
+      //  $mdDialog.show({
+      //   // controller: DialogController,
+      //   contentElement: document.getElementById('mapDialog'),
+      //   parent: angular.element(document.body),
+      //   // targetEvent: ev,
+      //   // clickOutsideToClose: true
+      // });
+    };
+    //  function DialogController($scope, $mdDialog) {
+    //    $scope.hide = function() {
+    //      $mdDialog.hide();
+    //    };
+    //    $scope.cancel = function() {
+    //      $mdDialog.cancel();
+    //    };
+    //    $scope.answer = function(answer) {
+    //      $mdDialog.hide(answer);
+    //    };
+    //  }
+
     function addEntry() {
       if(this.gasForm.$valid) {
         $scope.entry.gasPrice = $scope.gasPrice;

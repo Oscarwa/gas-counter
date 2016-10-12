@@ -28,22 +28,22 @@
           <div layout="row" layout-align="center">
             <md-input-container class="md-block" flex=30>
               <label>{{ 'GAS.COST' | translate}}</label>
-              <input ng-model="entry.cost" type="number" placeholder="$ 0.00" ng-blur="calculateLts()" required>
+              <input ng-model="entry.cost" min="0" max="9999" type="number" placeholder="$ 0.00" ng-blur="calculateLts()" required>
             </md-input-container>
             <md-input-container class="md-block" flex=30 >
               <label>{{ 'GAS.VOLUME' | translate}}</label>
-              <input ng-model="entry.l" type="number" placeholder="40.00" ng-blur="calculateCost()" required>
+              <input ng-model="entry.l" type="number" min="0" max="999" placeholder="40.00" ng-blur="calculateCost()" required>
             </md-input-container>
             <md-input-container class="md-block" flex=40>
               <label>{{ 'GAS.MILEAGE' | translate}}</label>
-              <input ng-model="entry.kms" type="number" placeholder="100000" required>
+              <input ng-model="entry.kms" type="number" min="0" max="999999" placeholder="100000" required>
             </md-input-container>
           </div>
           <md-card-actions>
             <div layout="row"  layout-align="start center">
               <md-button ng-if="!location.coords" ng-click="activateGPS()" class="md-raised">{{'GAS.USE_LOCATION' | translate}}</md-button>
               <div ng-if="location.coords">
-                <md-button class="md-fab" aria-label="Refresh location" ng-click="activateGPS()">
+                <md-button class="md-fab" aria-label="Refresh location" ng-click="showMapDialog($event)">
                   <md-icon md-svg-src="assets/svg/location.svg"></md-icon>
                   <md-tooltip md-direction="right">
                     {{location.coords.latitude | number:5}}, {{location.coords.longitude | number:5}}
@@ -80,4 +80,16 @@
           </md-list-item>
         </md-list>
       </md-content>
+
+      <!-- Prerendered dialog -->
+      <md-card id="mapDialog" aria-label="Mapin" ng-hide="true">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Map</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="row" layout-align="space-between">
+          <div id="map" style="height: 300px; width: 100%"></div>
+        </md-card-content>
+      </md-card>
 </div>

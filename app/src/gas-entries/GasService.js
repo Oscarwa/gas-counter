@@ -17,7 +17,7 @@
     return {
       loadAllEntriesByCar : function(car) {
         // Simulate async nature of real remote calls
-        return $firebaseArray(firebaseFactory.gasEntries.child(authService.user ? authService.user.uid : '-').child(car));
+        return $firebaseArray(firebaseFactory.gasEntries.child(authService.user.uid).child(car).orderByChild('date'));
         //return $q.when($localStorage.entries);
       },
       readEntries: function() {
@@ -49,7 +49,7 @@
         // console.log('save', entry);
       },
       getGasPrice: function() {
-        return $firebaseArray(firebaseFactory.settings.child(authService.user ? authService.user.uid : '-').child('gas'));
+        return $firebaseArray(firebaseFactory.settings.child(authService.user.uid).child('gas'));
       },
       setGasPrice: function(price) {
         var gasPrice = $firebaseArray(firebaseFactory.settings.child(authService.user.uid).child('gas'));
