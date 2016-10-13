@@ -6,9 +6,9 @@
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline">{{ 'GAS.TITLE' | translate}}</span>
-            <div layout="row">
+            <div layout="row" layout-xs="column">
               <div flex>
-                {{ 'GAS.CURRENT_GAS_PRICE' | translate}}:
+                <label>{{ 'GAS.CURRENT_GAS_PRICE' | translate}}:</label>
                 <md-button class="md-primary" ng-class="gasPrice == '0' ? 'md-warn' : ''"
                   ng-click="showChangePricePrompt($event)">{{gasPrice | number:3}}</md-button>
               </div>
