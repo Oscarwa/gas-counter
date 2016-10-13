@@ -30,43 +30,23 @@
         data.$add(entry);
 
 
-
-        // Save days since last entry
-        var timeDiff = Math.abs(new Date(entry.date).getTime() - new Date(previousEntry.date).getTime());
-        var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        //Save kms since last entry.
-        var kmsDiff = entry.kms - previousEntry.kms;
-        //previousEntry.kmDiff = kmsDiff;
-
-        firebaseFactory.gasEntries
-          .child(authService.user.uid)
-          .child(previousEntry.car)
-          .child(previousEntry.$id)
-          .update({
-            kmDiff: kmsDiff,
-            daysDiff: daysDiff
-        });
-
-
-
-        //var lastEntry = $localStorage.lastEntry;
-        //if(!!lastEntry) {
+        if(!!previousEntry && !!previousEntry.$id) {
           // Save days since last entry
-          //var timeDiff = Math.abs(new Date(entry.date).getTime() - new Date(lastEntry.date).getTime());
-          //entry.daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
+          var timeDiff = Math.abs(new Date(entry.date).getTime() - new Date(previousEntry.date).getTime());
+          var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
           //Save kms since last entry.
-          //var kmsDiff = entry.kms - lastEntry.kms;
-          //var lastElement = data.length - 1;
-          //data[lastElement].kmDiffNext = kmsDiff;
-          //data[lastElement].gasPerformance = kmsDiff / data[lastElement].l;
-          //data.kmDiffPrevious = kmsDiff;
-        // }
+          var kmsDiff = entry.kms - previousEntry.kms;
+          //previousEntry.kmDiff = kmsDiff;
 
-        //data.push(entry);
-        // $localStorage.lastEntry = entry;
-        // $localStorage.entries = data;
-        // console.log('save', entry);
+          firebaseFactory.gasEntries
+            .child(authService.user.uid)
+            .child(previousEntry.car)
+            .child(previousEntry.$id)
+            .update({
+              kmDiff: kmsDiff,
+              daysDiff: daysDiff
+          });
+        }
       },
       getGasPrice: function() {
         return $firebaseArray(firebaseFactory.settings.child(authService.user.uid).child('gas'));
