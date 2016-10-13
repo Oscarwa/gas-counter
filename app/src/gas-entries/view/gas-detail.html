@@ -19,6 +19,12 @@
                     {{car.year}} {{car.brand}} {{car.model}}
                   </md-option>
                 </md-select>
+                <!-- <md-button ng-hide="cars.length" class="md-icon-button md-accent" ng-href="#/car" aria-label="Refresh location">
+                  <md-icon md-svg-src="assets/svg/car.svg"></md-icon>
+                  <md-tooltip md-direction="right">
+                    {{ 'GAS.ADD_CAR' | translate}}
+                  </md-tooltip>
+                </md-button> -->
                 <md-button ng-hide="cars.length" class="md-primary md-warn" ng-href="#/car">{{ 'GAS.ADD_CAR' | translate}}</md-button>
               </md-input-container>
             </div>

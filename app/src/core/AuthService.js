@@ -2,7 +2,7 @@
 
   angular
        .module('core')
-       .factory('authService', [
+       .factory('AuthService', [
           '$rootScope', '$firebaseAuth',
           AuthService
        ]);

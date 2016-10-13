@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('gas')
-         .service('gasService', ['authService', 'firebaseFactory', '$firebaseArray', GasService]);
+         .service('GasService', ['AuthService', 'firebaseFactory', '$firebaseArray', GasService]);
 
   /**
    * Users DataService
@@ -12,19 +12,19 @@
    * @returns {{loadAll: Function}}
    * @constructor
    */
-  function GasService(authService, firebaseFactory, $firebaseArray) {
+  function GasService(AuthService, firebaseFactory, $firebaseArray) {
     // Promise-based API
     return {
       loadAllEntriesByCar : function(car) {
         // Simulate async nature of real remote calls
-        return $firebaseArray(firebaseFactory.gasEntries.child(authService.user.uid).child(car).orderByChild('date'));
+        return $firebaseArray(firebaseFactory.gasEntries.child(AuthService.user.uid).child(car).orderByChild('date'));
         //return $q.when($localStorage.entries);
       },
       readEntries: function() {
         console.log('read');
       },
       saveEntry: function(entry, previousEntry) {
-        var data = $firebaseArray(firebaseFactory.gasEntries.child(authService.user.uid).child(entry.car))
+        var data = $firebaseArray(firebaseFactory.gasEntries.child(AuthService.user.uid).child(entry.car))
         entry.date = new Date().toISOString();
 
         data.$add(entry);
@@ -39,7 +39,7 @@
           //previousEntry.kmDiff = kmsDiff;
 
           firebaseFactory.gasEntries
-            .child(authService.user.uid)
+            .child(AuthService.user.uid)
             .child(previousEntry.car)
             .child(previousEntry.$id)
             .update({
@@ -47,12 +47,6 @@
               daysDiff: daysDiff
           });
         }
-      },
-      getGasPrice: function() {
-        return $firebaseArray(firebaseFactory.settings.child(authService.user.uid).child('gas'));
-      },
-      setGasPrice: function(price) {
-        firebaseFactory.settings.child(authService.user.uid).child('gas').set({'value': price});
       }
     };
   }

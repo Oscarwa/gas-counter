@@ -3,7 +3,7 @@
   angular
        .module('car')
        .controller('CarController', [
-          'edmundsAPIService', 'carService', '$scope', 'Utils',
+          'EdmundsAPIService', 'CarService', '$scope', 'Utils',
           CarController
        ]);
 
@@ -14,7 +14,7 @@
    * @param avatarsService
    * @constructor
    */
-  function CarController( edmundsAPIService, carService, $scope, Utils) {
+  function CarController( EdmundsAPIService, CarService, $scope, Utils) {
 
     $scope.loadMakers   = loadMakers;
     $scope.clearSearchTerm  = clearSearchTerm;
@@ -41,17 +41,16 @@
     });
 
     function reloadInfo() {
-      $scope.myCars = carService.loadAllCars();
+      $scope.myCars = CarService.loadAllCars();
     }
 
     function setDefault(car) {
-      carService.setDefault(car.$id);
+      CarService.setDefault(car.$id);
     }
 
     function saveCar() {
       //save car info
-      carService
-        .saveCar({
+      CarService.saveCar({
           brand: $scope.car.brand.name,
           model: $scope.car.model.name,
           year: $scope.car.year.year,
@@ -73,7 +72,7 @@
     function saveCustomCar() {
       //save car info
       $scope.customCar.default = !$scope.myCars.length;
-      carService.saveCar($scope.customCar);
+      CarService.saveCar($scope.customCar);
       Utils.showToast('CAR.ADD_SUCESS');
       cancelCustom(this.customCarForm, this.carForm);
     }
@@ -105,7 +104,7 @@
 
     function loadMakers() {
       if(!$scope.carBrands) {
-        return edmundsAPIService
+        return EdmundsAPIService
           .loadMakes()
           .then( function( makes ) {
             $scope.carBrands = makes.makes;

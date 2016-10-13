@@ -3,7 +3,7 @@
   angular
        .module('info')
        .controller('feedbackController', [
-          '$scope', '$location', '$mdDialog', 'feedbackService',
+          '$scope', '$location', '$mdDialog', 'FeedbackService',
           FeedbackController
        ]);
 

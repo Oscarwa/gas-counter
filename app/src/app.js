@@ -8,7 +8,9 @@ angular
       'core',
       'gas',
       'car',
-      'info'])
+      'profile',
+      'info',
+      'setup'])
     .config(function($mdThemingProvider, $mdIconProvider, $routeProvider) {
         $mdThemingProvider.theme('default')
           .primaryPalette('blue')
@@ -35,10 +37,10 @@ angular
             redirectTo: '/'
           });
     })
-    .run(['$rootScope', '$location', 'authService', function ($rootScope, $location, authService) {
+    .run(['$rootScope', '$location', 'AuthService', function ($rootScope, $location, AuthService) {
           $rootScope.$on('$routeChangeStart', function (event, next) {
 
-          if (!authService.user && (next.originalPath && next.originalPath !== '/')) {
+          if (!AuthService.user && (next.originalPath && next.originalPath !== '/')) {
             //console.log('DENY : Redirecting to Login');
             event.preventDefault();
             $location.path('/');

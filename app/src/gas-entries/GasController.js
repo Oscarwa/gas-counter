@@ -3,7 +3,7 @@
   angular
        .module('gas')
        .controller('GasController', [
-          'gasService', 'carService', '$scope', '$mdDialog', '$filter', 'authService', 'Utils',
+          'GasService', 'CarService', 'ProfileService', '$scope', '$mdDialog', '$filter', 'AuthService', 'Utils',
           GasController
        ]);
 
@@ -14,7 +14,7 @@
    * @param avatarsService
    * @constructor
    */
-  function GasController( gasService, carService, $scope, $mdDialog, $filter, AuthService, Utils ) {
+  function GasController( GasService, CarService, ProfileService, $scope, $mdDialog, $filter, AuthService, Utils ) {
 
     $scope.gasEntries   = [ ];
     $scope.addEntry     = addEntry;
@@ -109,7 +109,7 @@
     function addEntry() {
       if(this.gasForm.$valid) {
         $scope.entry.gasPrice = $scope.gasPrice;
-        gasService.saveEntry($scope.entry, $scope.lastEntry);
+        GasService.saveEntry($scope.entry, $scope.lastEntry);
         Utils.showToast('GAS.SAVE_SUCCESS')
         clearEntry(this.gasForm);
         reload();
@@ -127,7 +127,7 @@
 
     function reload() {
 
-        gasService.getGasPrice()
+        ProfileService.getGasPrice()
           .$loaded()
           .then(function(item){
             if(!item.length) {
@@ -137,13 +137,13 @@
             }
           });
 
-      $scope.cars = carService.loadAllCars();
+      $scope.cars = CarService.loadAllCars();
 
       reloadGasEntries();
     }
     function reloadGasEntries() {
       if($scope.entry.car) {
-        gasService.loadAllEntriesByCar($scope.entry.car).$loaded().then(function(items) {
+        GasService.loadAllEntriesByCar($scope.entry.car).$loaded().then(function(items) {
           $scope.gasEntries = items;
           if(items.length) {
             $scope.lastEntry = items[items.length - 1];
@@ -199,12 +199,13 @@
       $mdDialog.show(confirm).then(function(result) {
         //$scope.status = 'You decided to name your dog ' + result + '.';
         var floatResult = parseFloat(result);
-        gasService
-          .setGasPrice(floatResult);
+        ProfileService.setGasPrice(floatResult);
         $scope.gasPrice = floatResult;
 
       }, function() {
-        $scope.gasPrice = '0';
+        if(!$scope.gasPrice) {
+          $scope.gasPrice = '0';
+        }
       });
     };
 

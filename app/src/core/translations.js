@@ -6,7 +6,7 @@ angular.module('core')
     .translations('en', {
       'LOGIN': {
         'TITLE': 'Login',
-        'LOGIN_WITH': 'Login with'
+        'LOGIN_WITH': 'With'
       },
       'GENERAL': {
         'APP_NAME': 'Gas Tracker',
@@ -17,14 +17,14 @@ angular.module('core')
       },
       'MENU': {
         'HOME': 'Home',
-        'MY_CARS': 'My cars',
+        'MY_CARS': 'Your cars',
         'LOGOUT': 'Logout',
         'FEEDBACK': 'Feedback'
       },
       'GAS': {
         'TITLE': 'New gas entry',
         'CURRENT_GAS_PRICE': 'Current gas price',
-        'ADD_CAR': 'Add your first car',
+        'ADD_CAR': 'Add your car',
         'YOUR_CAR': 'Select your car',
         'COST': 'Cost',
         'VOLUME': 'Lts',
@@ -52,7 +52,7 @@ angular.module('core')
         'BRAND': 'Brand',
         'MODEL': 'Model',
         'YEAR': 'Year',
-        'NO_CAR': 'Can\'t find your car?',
+        'NO_CAR': 'Not found?',
         'ADD': '@:GENERAL.ADD',
         'ADD_SUCESS': 'Car saved',
         'CANCEL': '@:GENERAL.CANCEL'
@@ -67,7 +67,7 @@ angular.module('core')
     .translations('es', {
       'LOGIN': {
         'TITLE': 'Iniciar sesión',
-        'LOGIN_WITH': 'Iniciar sesión con'
+        'LOGIN_WITH': 'Con'
       },
       'GENERAL': {
         'APP_NAME': 'Gas Tracker',
@@ -78,14 +78,14 @@ angular.module('core')
       },
       'MENU': {
         'HOME': 'Inicio',
-        'MY_CARS': 'Mis vehículos',
+        'MY_CARS': 'Tus vehículos',
         'LOGOUT': 'Cerrar sesión',
         'FEEDBACK': 'Feedback'
       },
       'GAS': {
         'TITLE': 'Nueva carga',
         'CURRENT_GAS_PRICE': 'Precio actual',
-        'ADD_CAR': 'Agrega tu primer vehículo',
+        'ADD_CAR': 'Agrega tu vehículo',
         'YOUR_CAR': 'Selecciona tu vehículo',
         'COST': 'Costo',
         'VOLUME': 'Lts',
@@ -113,7 +113,7 @@ angular.module('core')
         'BRAND': 'Marca',
         'MODEL': 'Modelo',
         'YEAR': 'Año',
-        'NO_CAR': '¿No encuentras tu vehículo?',
+        'NO_CAR': '¿No lo encuentras?',
         'ADD': '@:GENERAL.ADD',
         'ADD_SUCESS': 'Vehículo guardado',
         'CANCEL': '@:GENERAL.CANCEL'

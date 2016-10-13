@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('info')
-         .service('feedbackService', ['$firebaseArray', 'authService', FeedbackService]);
+         .service('FeedbackService', ['$firebaseArray', 'authService', FeedbackService]);
 
   function FeedbackService($firebaseArray, AuthService) {
     // Promise-based API

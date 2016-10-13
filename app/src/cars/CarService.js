@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('car')
-         .service('carService', ['$rootScope', '$firebaseArray', 'firebaseFactory', 'authService', CarService]);
+         .service('CarService', ['$rootScope', '$firebaseArray', 'firebaseFactory', 'AuthService', CarService]);
 
   /**
    * Users DataService
@@ -12,14 +12,14 @@
    * @returns {{loadAll: Function}}
    * @constructor
    */
-  function CarService($rootScope, $firebaseArray, firebaseFactory, authService) {
+  function CarService($rootScope, $firebaseArray, firebaseFactory, AuthService) {
 
     return {
       loadAllCars: function() {
-        return $firebaseArray(firebaseFactory.cars.child(authService.user ? authService.user.uid : '-'));
+        return $firebaseArray(firebaseFactory.cars.child(AuthService.user.uid));
       },
       setDefault: function(id) {
-        var defaultCar = $firebaseArray(firebaseFactory.cars.child(authService.user.uid))
+        var defaultCar = $firebaseArray(firebaseFactory.cars.child(AuthService.user.uid))
           .$loaded(function(items) {
             for(var i = 0; i < items.length; i++) {
               items[i].default = items[i].$id === id;
@@ -28,7 +28,7 @@
         });
       },
       saveCar: function(car) {
-        var cars = $firebaseArray(firebaseFactory.cars.child(authService.user.uid));
+        var cars = $firebaseArray(firebaseFactory.cars.child(AuthService.user.uid));
 
         var carToSave = {
           created: new Date().toISOString(),
