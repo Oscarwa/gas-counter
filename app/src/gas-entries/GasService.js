@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('gas')
-         .service('GasService', ['AuthService', 'firebaseFactory', '$firebaseArray', GasService]);
+         .service('GasService', ['AuthService', 'GasStationService', 'firebaseFactory', '$firebaseArray', GasService]);
 
   /**
    * Users DataService
@@ -12,7 +12,7 @@
    * @returns {{loadAll: Function}}
    * @constructor
    */
-  function GasService(AuthService, firebaseFactory, $firebaseArray) {
+  function GasService(AuthService, GasStationService, firebaseFactory, $firebaseArray) {
     // Promise-based API
     return {
       loadAllEntriesByCar : function(car) {
@@ -29,14 +29,15 @@
 
         data.$add(entry);
 
-
         if(!!previousEntry && !!previousEntry.$id) {
           // Save days since last entry
           var timeDiff = Math.abs(new Date(entry.date).getTime() - new Date(previousEntry.date).getTime());
           var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+          previousEntry.daysDiff = daysDiff;
+
           //Save kms since last entry.
           var kmsDiff = entry.kms - previousEntry.kms;
-          //previousEntry.kmDiff = kmsDiff;
+          previousEntry.kmDiff = kmsDiff;
 
           firebaseFactory.gasEntries
             .child(AuthService.user.uid)
@@ -46,7 +47,13 @@
               kmDiff: kmsDiff,
               daysDiff: daysDiff
           });
+
+          // GasStationService add
+          if(!!previousEntry.gasStation) {
+            GasStationService.addStationEntry(previousEntry);
+          }
         }
+
       }
     };
   }

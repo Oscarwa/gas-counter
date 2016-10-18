@@ -12,6 +12,7 @@
       root: root,
       cars: root.child('cars'),
       gasEntries: root.child('gas'),
+      gasStations: root.child('gasStations'),
       settings: root.child('settings')
     };
 

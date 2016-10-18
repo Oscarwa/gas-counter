@@ -80,6 +80,7 @@
               // console.log(results[i].name + ' - ' + results[i].vicinity);
             // }
             Utils.showToast(results[0].name + ' - ' + results[0].vicinity)
+            $scope.gasStations = results;
           } else if(status === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
             Utils.showToast('GAS.NO_RESULTS');
           }

@@ -45,18 +45,34 @@
               <input ng-model="entry.kms" type="number" min="{{lastEntry.kms}}" max="999999" placeholder="{{lastEntry.kms}}" required>
             </md-input-container>
           </div>
-          <md-card-actions>
-            <div layout="row"  layout-align="start center" ng-if="false">
-              <md-button ng-if="!location.coords" ng-click="activateGPS()" class="md-raised">{{'GAS.USE_LOCATION' | translate}}</md-button>
-              <div ng-if="location.coords">
-                <md-button class="md-fab" aria-label="Refresh location" ng-click="showMapDialog($event)">
-                  <md-icon md-svg-src="assets/svg/location.svg"></md-icon>
+          <div layout="row"  layout-align="start center" >
+            <md-button ng-if="!location.coords" ng-click="activateGPS()" class="md-raised">{{'GAS.USE_LOCATION' | translate}}</md-button>
+            <div ng-if="location.coords">
+              <!-- <md-button class="md-fab" aria-label="Refresh location" ng-click="showMapDialog($event)">
+                <md-icon md-svg-src="assets/svg/location.svg"></md-icon>
+                <md-tooltip md-direction="right">
+                  {{location.coords.latitude | number:5}}, {{location.coords.longitude | number:5}}
+                </md-tooltip>
+              </md-button> -->
+              <md-input-container flex>
+                <label>{{'GAS.YOUR_CAR' | translate}}</label>
+                <md-select ng-model="entry.gasStation" ng-show="gasStations.length">
+                  <md-option ng-repeat="gasStation in gasStations" value="{{gasStation.place_id}}">
+                    {{gasStation.name}} - {{gasStation.vicinity}}
+                  </md-option>
+                </md-select>
+                <!-- <md-button ng-hide="cars.length" class="md-icon-button md-accent" ng-href="#/car" aria-label="Refresh location">
+                  <md-icon md-svg-src="assets/svg/car.svg"></md-icon>
                   <md-tooltip md-direction="right">
-                    {{location.coords.latitude | number:5}}, {{location.coords.longitude | number:5}}
+                    {{ 'GAS.ADD_CAR' | translate}}
                   </md-tooltip>
-                </md-button>
-              </div>
+                </md-button> -->
+                <md-button ng-hide="cars.length" class="md-primary md-warn" ng-href="#/car">{{ 'GAS.ADD_CAR' | translate}}</md-button>
+              </md-input-container>
             </div>
+          </div>
+          <md-card-actions>
+
             <!-- </md-card-actions>
             <md-card-actions flex> -->
             <div layout="row"  layout-align="end center">
